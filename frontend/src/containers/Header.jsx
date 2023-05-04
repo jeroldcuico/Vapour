@@ -9,6 +9,8 @@ const menus = [
   { label: "Trending", path: "/trending" },
   { label: "Genre", path: "/genre" },
   { label: "Publishers", path: "/publishers" },
+  { label: "Platforms", path: "/platforms" },
+  { label: "Stores", path: "/stores" },
 ];
 
 function Header() {
