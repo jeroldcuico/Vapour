@@ -13,6 +13,7 @@ export default function GamesbyGenre() {
 
   return (
     <>
+    <h1>Genre</h1>
       <div className="row">
         {genrelist.map((item, id) => (
           <div className="col-md-4" key={id}>

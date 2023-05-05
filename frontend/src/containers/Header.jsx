@@ -11,6 +11,7 @@ const menus = [
   { label: "Publishers", path: "/publishers" },
   { label: "Platforms", path: "/platforms" },
   { label: "Stores", path: "/stores" },
+  { label: "Tags", path: "/tags" },
 ];
 
 function Header() {

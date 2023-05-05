@@ -27,7 +27,7 @@ export default function GamebyDetails() {
         <h1>{gamedetails.name}</h1>
         <img src={gamedetails.background_image} alt="Game" style={{ "width": "100%" }} />
         {gamedetails.tags?.map((tag, id) => (
-          <span key={id} className="badge text-bg-primary mx-1">{tag.name}</span>
+          <span key={id} className="badge text-bg-dark mx-1">{tag.name}</span>
         ))
         }
         <p>{gamedetails.description_raw}</p>

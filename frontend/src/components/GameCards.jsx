@@ -8,7 +8,7 @@ export default function GameCards() {
 
   useEffect(() => {
     fetchGames((data) => {
-      console.log(data.results);
+      console.log(data);
       setGames(data.results);
       setNextPage(data.next);
     });
@@ -37,6 +37,7 @@ export default function GameCards() {
 
   return (
     <>
+      <h1>All Games</h1>
       <div className="row">
         {games.map((item, id) => (
           <div className="col-md-4" key={id}>
