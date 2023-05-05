@@ -35,6 +35,7 @@ export default function GamesbyTags() {
     };
   }, [taglist, nextPage]);
 
+  console.log(taglist);
   return (
     <>
       <h1>Tags</h1>
