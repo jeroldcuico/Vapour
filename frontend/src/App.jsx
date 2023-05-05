@@ -11,6 +11,8 @@ import Trending from "./components/Trending";
 import Error404 from "./components/Error404";
 import GamesbyPlatforms from "./components/GamesbyPlatforms";
 import GamesbyStores from "./components/GamesbyStores";
+import GamesbyTags from "./components/GamesbyTags";
+import GamesbyAPIDetails from "./components/GamesbyAPIDetails";
 function App() {
 
 
@@ -24,7 +26,9 @@ function App() {
         <Route path="publishers" element={<GamesbyPublishers />} />
         <Route path="platforms" element={<GamesbyPlatforms />} />
         <Route path="stores" element={<GamesbyStores />} />
+        <Route path="tags" element={<GamesbyTags />} />
         <Route path="details/:name/:id" element={<GamebyDetails />} />
+        <Route path="games/:category/:id" element={<GamesbyAPIDetails />} />
         <Route path="*" element={<Error404 />} />
       </Route>
     </Routes>

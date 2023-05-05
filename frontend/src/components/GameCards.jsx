@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 
 export default function GameCards() {
   const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
 
   useEffect(() => {
     fetchGames((data) => {
-      console.log(data.results);
+      console.log(data);
       setGames(data.results);
       setNextPage(data.next);
+      setLoading(false)
     });
   }, []); //!Initialize first 20 Games
 
@@ -23,6 +25,7 @@ export default function GameCards() {
             .then((data) => {
               setGames((prevGames) => [...prevGames, ...data.results]);
               setNextPage(data.next);
+              setLoading(false)
             })
             .catch((error) => console.error(error));
         }
@@ -35,8 +38,13 @@ export default function GameCards() {
     };
   }, [games, nextPage]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
+      <h1>All Games</h1>
       <div className="row">
         {games.map((item, id) => (
           <div className="col-md-4" key={id}>
