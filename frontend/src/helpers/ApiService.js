@@ -36,6 +36,7 @@ export async function fetchGamesGenre(callback) {
 export async function fetchGamesPublisher(callback) {
   const data = await fetchData(PUBLISHERS_URL_API);
   callback(data);
+  
 }
 export async function fetchGamesPlatforms(callback) {
   const data = await fetchData(PLATFORMS_URL_API);
