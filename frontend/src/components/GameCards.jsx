@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function GameCards() {
   const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
 
   useEffect(() => {
@@ -11,6 +12,7 @@ export default function GameCards() {
       console.log(data);
       setGames(data.results);
       setNextPage(data.next);
+      setLoading(false)
     });
   }, []); //!Initialize first 20 Games
 
@@ -23,6 +25,7 @@ export default function GameCards() {
             .then((data) => {
               setGames((prevGames) => [...prevGames, ...data.results]);
               setNextPage(data.next);
+              setLoading(false)
             })
             .catch((error) => console.error(error));
         }
@@ -34,6 +37,10 @@ export default function GameCards() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [games, nextPage]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
