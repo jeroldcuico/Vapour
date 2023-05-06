@@ -6,7 +6,7 @@ export default function GamesbyGenre() {
   const [genrelist, setgenrelist] = useState([]);
   useEffect(() => {
     fetchGamesGenre((data) => {
-      console.log(data.results);
+      console.log(data);
       setgenrelist(data.results);
     });
   }, []); //!Initialize first 20 Games
