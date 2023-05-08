@@ -1,10 +1,13 @@
-export { default as Error404 } from "./Error404";
-export { default as Home } from "./Home";
-export { default as Games } from "./Games";
-export { default as GamebyDetails } from "./GamebyDetails";
-export { default as Search } from "./Search";
-export { default as Tags } from "./Tags";
-export { default as Platforms } from "./Platforms";
-export { default as Genres } from "./Genres";
-export { default as Stores } from "./Stores";
-export { default as Details } from "./Details";
+import { lazy } from 'react'
+export const Home = lazy(() => import('./Home'))
+export const Games = lazy(() => import('./Games'))
+export const Tags = lazy(() => import('./Tags'))
+export const Genres = lazy(() => import('./Genres'))
+export const Platforms = lazy(() => import('./Platforms'))
+export const Publishers = lazy(() => import('./Publishers'))
+export const Stores = lazy(() => import('./Stores'))
+export const Developers = lazy(() => import('./Developers'))
+export const Error404 = lazy(() => import('./Error404'))
+export const Category_List = lazy(() => import('./Category_List'))
+export const GameDetails = lazy(() => import('./GameDetails'))
+
