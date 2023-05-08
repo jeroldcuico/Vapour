@@ -1,37 +1,34 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import ContentArea from "./containers/ContentArea";
-import GamebyDetails from "./components/GamebyDetails";
-import GameCards from "./components/GameCards";
-import GamesbyGenre from "./components/GamesbyGenre";
-import GamesbyPublishers from "./components/GamesbyPublishers";
-import Home from "./components/Home";
-import Trending from "./components/Trending";
-import Error404 from "./components/Error404";
-import GamesbyPlatforms from "./components/GamesbyPlatforms";
-import GamesbyStores from "./components/GamesbyStores";
-import GamesbyTags from "./components/GamesbyTags";
-import GamesbyAPIDetails from "./components/GamesbyAPIDetails";
+import "./index.css";
+import {
+  Home, Tags, Games, Genres, Platforms, Publishers, Stores, Developers, Error404, Category_List, GameDetails
+} from "./components";
+import Header from "./Navigation/Header";
+
+
+
 function App() {
-
-
   return (
-    <Routes>
-      <Route path="/" element={<ContentArea />}>
-        <Route index element={<Home />} />
-        <Route path="allgames" element={<GameCards />} />
-        <Route path="trending" element={<Trending />} />
-        <Route path="genre" element={<GamesbyGenre />} />
-        <Route path="publishers" element={<GamesbyPublishers />} />
-        <Route path="platforms" element={<GamesbyPlatforms />} />
-        <Route path="stores" element={<GamesbyStores />} />
-        <Route path="tags" element={<GamesbyTags />} />
-        <Route path="details/:name/:id" element={<GamebyDetails />} />
-        <Route path="games/:category/:id" element={<GamesbyAPIDetails />} />
-        <Route path="*" element={<Error404 />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/games" element={<Games />} />
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/genres" element={<Genres />} />
+          <Route path="/platforms" element={<Platforms />} />
+          <Route path="/publishers" element={<Publishers />} />
+          <Route path="/developers" element={<Developers />} />
+          <Route path="/stores" element={<Stores />} />
+          <Route path="/category/:category/:slug" element={<Category_List />} />
+          <Route path="/games/:slug" element={<GameDetails />} />
+          <Route path="*" element={<Error404 />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
