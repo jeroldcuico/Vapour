@@ -6,10 +6,8 @@ function ContentArea() {
   return (
     <>
       <Header menus={[]} />
-      <div className="container">
-        <div className="row">
-          <Outlet />
-        </div>
+      <div className="container-fluid">
+        <Outlet />
       </div>
       <Footer />
     </>

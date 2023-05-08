@@ -1,3 +1,4 @@
+export const GAME_NODE_ROOT = "http://localhost:8000/api";
 export const GAME_API_ROOT = "https://api.rawg.io/api/";
 export const APP_KEY = "3f4a034d7b034f7bbea4371034a6e66d";
 export const PLATFORMS_URL_API = `${GAME_API_ROOT}platforms?key=${APP_KEY}`;
@@ -7,4 +8,5 @@ export const DEVELOPERS_URL_API = `${GAME_API_ROOT}developers?key=${APP_KEY}`;
 export const PUBLISHERS_URL_API = `${GAME_API_ROOT}publishers?key=${APP_KEY}`;
 export const STORES_URL_API = `${GAME_API_ROOT}stores?key=${APP_KEY}`;
 export const GAMES_URL_API = `${GAME_API_ROOT}games?key=${APP_KEY}`;
+export const GAMES_URL_POPULAR = `${GAME_API_ROOT}collections/lists/popular?key=${APP_KEY}&ordering=released`;
 export const GAME_DETAILS_URL_API = `${GAME_API_ROOT}games/`;

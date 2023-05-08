@@ -1,0 +1,10 @@
+export { default as Error404 } from "./Error404";
+export { default as Home } from "./Home";
+export { default as Games } from "./Games";
+export { default as GamebyDetails } from "./GamebyDetails";
+export { default as Search } from "./Search";
+export { default as Tags } from "./Tags";
+export { default as Platforms } from "./Platforms";
+export { default as Genres } from "./Genres";
+export { default as Stores } from "./Stores";
+export { default as Details } from "./Details";

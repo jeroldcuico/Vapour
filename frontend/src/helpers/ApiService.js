@@ -1,6 +1,6 @@
 import {
   GAMES_URL_API,
-  GAME_DETAILS_URL_API,
+  GAMES_URL_POPULAR,
   TAGS_URL_API,
   DEVELOPERS_URL_API,
   PUBLISHERS_URL_API,
@@ -19,6 +19,7 @@ export async function fetchGames(callback) {
   const data = await fetchData(GAMES_URL_API);
   callback(data);
 }
+
 
 export async function fetchGamesByDevelopers(callback) {
   const data = await fetchData(DEVELOPERS_URL_API);
@@ -48,6 +49,10 @@ export async function fetchGamesStore(callback) {
 }
 export async function fetchCustomURL(url, callback) {
   const data = await fetchData(url);
+  callback(data);
+}
+export async function fetchPopular(callback) {
+  const data = await fetchData(GAMES_URL_POPULAR);
   callback(data);
 }
 
