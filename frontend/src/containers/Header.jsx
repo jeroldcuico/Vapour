@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png";
-import "./index.css";
+import '../index.css'
 import { Link } from "react-router-dom";
 
 const menus = [
@@ -22,7 +22,7 @@ function Header() {
       >
         <div className="container-fluid">
 
-          <img src={logo} alt="Vapour" width={70}  className="mx-2"/>
+          <img src={logo} alt="Vapour" width={70} className="mx-2" />
           <a className="navbar-brand text-white" href="#">
             VAPOUR
           </a>
