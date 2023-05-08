@@ -5,17 +5,17 @@ import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
 import Category_Cards from "./Category_Cards";
 
-export default function Stores() {
-    const [stores, setStores] = useState([]);
+export default function Developers() {
+    const [developers, setDevelopers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");
 
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/stores`)
+            .get(`http://localhost:8000/api/developers/`)
             .then((res) => {
-                setStores(res.data.results);
+                setDevelopers(res.data.results);
                 setNextPage(res.data.next);
                 setLoading(false);
             })
@@ -35,7 +35,7 @@ export default function Stores() {
                     fetch(nextPage)
                         .then((response) => response.json())
                         .then((data) => {
-                            setStores((prevGames) => [...prevGames, ...data.results]);
+                            setDevelopers((prevGames) => [...prevGames, ...data.results]);
                             setNextPage(data.next);
                         })
                         .catch((error) => console.error(error));
@@ -47,12 +47,12 @@ export default function Stores() {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, [stores, nextPage]);
+    }, [developers, nextPage]);
 
     return (
         <>
             <div className="container-fluid">
-                <h1>Stores</h1>
+                <h1>Developers</h1>
                 <div className="row">
                     {
                         (loading) ?
@@ -62,9 +62,9 @@ export default function Stores() {
                                 </div>
                             </div>
                             :
-                            stores?.map((item, id) => (
+                            developers?.map((item, id) => (
                                 <div className="col-6 col-lg-3 my-2" key={id}>
-                                    <Category_Cards item={item} category={'stores'}/>
+                                    <Category_Cards item={item} category={'developers'} />
                                 </div>
                             ))}
                 </div>
