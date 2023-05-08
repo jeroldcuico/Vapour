@@ -122,7 +122,7 @@ export default function GamebyDetails() {
                       <Link
                         key={id}
                         id={id}
-                        to={`/category/${tags}/${tag.name}`}
+                        to={`/category/${tags}/${tag.slug}`}
                         state={[tag, tags]}
                         className="btn btn-sm btn-dark gametags border"
                       >
@@ -135,7 +135,7 @@ export default function GamebyDetails() {
                     {gamedetails.genres?.map((genres, id) => (
                       <Link
                         key={id}
-                        to={`/category/${genre}/${genres.name}`}
+                        to={`/category/${genre}/${genres.slug}`}
                         state={[genres, genre]}
                         className="btn btn-sm btn-dark gametags border"
                       >

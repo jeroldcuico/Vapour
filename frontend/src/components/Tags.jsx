@@ -4,7 +4,7 @@ import axios from "axios";
 import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
 import { GAME_NODE_ROOT } from "../helpers/Api";
-import Card from "./Card";
+import CategoryCard from "./CategoryCard";
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
@@ -15,7 +15,6 @@ export default function Tags() {
     axios
       .get(`${GAME_NODE_ROOT}/tags`)
       .then((res) => {
-        console.log(res.data);
         setTags(res.data.results);
         setNextPage(res.data.next);
         setLoading(false);
@@ -46,6 +45,7 @@ export default function Tags() {
     };
   }, [tags, nextPage]);
 
+
   if (loading) {
     return (
       <>
@@ -64,7 +64,7 @@ export default function Tags() {
         <div className="row">
           {tags?.map((item, id) => (
             <div className="col-6 col-lg-3 my-2" key={id}>
-              <Card item={item} />
+              <CategoryCard item={item} />
             </div>
           ))}
         </div>

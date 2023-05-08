@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Card({ item }) {
+export default function CategoryCard({ item }) {
 
   const img = item.background_image || item.image_background;
   return (
@@ -17,36 +17,34 @@ export default function Card({ item }) {
             }}
           >
             <div className="card-body d-flex flex-column justify-content-center shadow-lg p-3 rounded">
-              <h3 className="card-title fw-bolder">{item.name}</h3>
+              <h3 className="card-title fw-bolder text-capitalize">
+                {item.name}
+              </h3>
+              <h5 className="card-title fw-bolder">({item.games_count})</h5>
             </div>
           </div>
           <div className="card text-center flip-back">
             <div className="card-body d-flex flex-column">
-              <Link className="text-white" to={`/details/${item.slug}`}>
+              <Link className="text-white" >
                 {item.name}
               </Link>
               <ul className="list-group my-2">
-                <li className="list-group-item">Ratings: {[item.rating]}</li>
-                <li className="list-group-item">
-                  Top Ratings: {[item.rating_top]}
-                </li>
-                <li className="list-group-item">
-                  Review Counts: {[item.reviews_count]}
-                </li>
-                <li className="list-group-item">Released: {[item.released]}</li>
-                <li className="list-group-item">Playtime: {[item.playtime]}</li>
+                {item.games?.map((game, id) => (
+                  <li className="list-group-item" key={id}>
+                    <Link to={`/games/${game.slug}`} state={game}>
+                      {game.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
               <div className="d-flex gap-2 align-items-center justify-content-center">
-                <a href="#" className="btn btn-sm btn-success">
-                  Add to Collection
-                </a>
                 <Link
-                  to={`/games/${item.slug}`}
+                  to={`/games/${item.slug}`} 
                   state={item}
                   type="button"
                   className="btn btn-sm btn-dark"
                 >
-                  Game Details
+                  View all
                 </Link>
               </div>
             </div>

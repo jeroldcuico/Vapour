@@ -6,6 +6,7 @@ import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
 import { GAME_NODE_ROOT } from "../helpers/Api";
 import Card from "./Card";
+import { fetchData } from "../helpers/ApiService";
 
 export default function Games() {
   const [games, setGames] = useState([]);
@@ -14,9 +15,10 @@ export default function Games() {
   const [selectedOption, setSelectedOption] = useState("popularity");
   const [ordering, setOrdering] = useState("popularity");
 
-  useEffect(() => {
+  const FetchData = (sort) => {
+    setLoading(true)
     axios
-      .get(`${GAME_NODE_ROOT}/games/?ordering=${ordering}`)
+      .get(`${GAME_NODE_ROOT}/games/?ordering=${sort}`)
       .then((res) => {
         setGames(res.data.results);
         setNextPage(res.data.next);
@@ -25,6 +27,10 @@ export default function Games() {
       .catch((error) => {
         console.log(error);
       });
+  };
+  
+  useEffect(() => {
+    FetchData(ordering)
   }, [ordering]); //!Initialize first 20 Games
 
   useEffect(() => {
@@ -47,9 +53,9 @@ export default function Games() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [games, nextPage]);
-  const handleOptionChange = (selectedOption) => {
+  const handleOptionChange = (e) => {
     let ordering;
-    switch (selectedOption.value) {
+    switch (e.target.value) {
       case "name":
         ordering = "name";
         break;
@@ -75,9 +81,8 @@ export default function Games() {
         ordering = "default";
         break;
     }
-    setSelectedOption(selectedOption);
-    setOrdering(selectedOption.value);
-    setLoading(false);
+    setSelectedOption(e.target.value);
+    setOrdering(e.target.value);
   };
 
   const options = [
@@ -106,16 +111,17 @@ export default function Games() {
     <>
       <div className="container-fluid">
         <h1 className="text-white">All Games</h1>
-        <div className="d-flex justify-content-end align-items-center">
+        <div className="d-flex justify-content-end align-items-center mb-3">
           <label htmlFor="sortby" className="text-white">
             Sort by:{" "}
           </label>
-          <Select
-            id="sortby"
-            options={options}
-            value={selectedOption}
-            onChange={handleOptionChange}
-          />
+          <select value={ordering} onChange={handleOptionChange} className="form-select" style={{width : '10rem'}}>
+            {options.map((option, id) => (
+              <option key={id} value={option.value} >
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="row">
           {games?.map((item, id) => (

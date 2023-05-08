@@ -4,7 +4,7 @@ import axios from "axios";
 import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
 import { GAME_NODE_ROOT } from "../helpers/Api";
-import Card from "./Card";
+import CategoryCard from "./CategoryCard";
 
 export default function Genres() {
   const [genres, setGenres] = useState([]);
@@ -64,7 +64,7 @@ export default function Genres() {
         <div className="row">
           {genres?.map((item, id) => (
             <div className="col-6 col-lg-3 my-2" key={id}>
-              <Card item={item} />
+              <CategoryCard item={item} />
             </div>
           ))}
         </div>
