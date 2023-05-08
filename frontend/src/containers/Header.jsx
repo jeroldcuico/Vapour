@@ -1,31 +1,48 @@
-import React from "react";
-import logo from "../assets/logo.png";
-import "./index.css";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
+import { Link, useNavigate } from "react-router-dom";
 const menus = [
   { label: "Home", path: "/" },
-  { label: "All Games", path: "/allgames" },
-  { label: "Trending", path: "/trending" },
-  { label: "Genre", path: "/genre" },
-  { label: "Publishers", path: "/publishers" },
-  { label: "Platforms", path: "/platforms" },
-  { label: "Stores", path: "/stores" },
-  { label: "Tags", path: "/tags" },
+  { label: "All Games", path: "/games" },
 ];
 
 function Header() {
+  const [query, setQuery] = useState("");
+  let navigate = useNavigate();
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+
+    if (e.target.value) {
+      setTimeout(() => {
+        navigate(`/search?q=${e.target.value}`);
+      }, 1000);
+    } else {
+      navigate("/games");
+    }
+  };
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    function handleScroll() {
+      if (window.pageYOffset > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const navbarClass = isScrolled ? "scrolled" : "";
   return (
     <>
-      <nav
-        className="navbar navbar-expand-lg bg-body-secondary bg-dark"
-      >
+      <nav className={`navbar navbar-expand-lg sticky-top ${navbarClass}`}>
         <div className="container-fluid">
-
-          <img src={logo} alt="Vapour" width={70}  className="mx-2"/>
-          <a className="navbar-brand text-white" href="#">
-            VAPOUR
-          </a>
+          <Link className="navbar-brand text-white" to={"/"}>
+            <h1>VAPOUR</h1>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -51,12 +68,11 @@ function Header() {
               <input
                 className="form-control me-2"
                 type="search"
+                value={query}
+                onChange={handleSearch}
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-light" type="submit">
-                Search
-              </button>
             </form>
           </div>
         </div>

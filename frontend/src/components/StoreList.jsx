@@ -25,8 +25,8 @@ export default function StoreList({ gameid }) {
     return (
         <>{
             combinedAPI.map((item, id) => (
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <a key={id} type="button" target="_blank" href={item.url}  className="btn btn-dark mx-1" >{item.name}</a>
+                <div key={id} className="btn-group" role="group" aria-label="Basic example">
+                    <a type="button" target="_blank" href={item.url}  className="btn btn-sm btn-dark mx-1 border" >{item.name}</a>
                 </div>
             ))
         }

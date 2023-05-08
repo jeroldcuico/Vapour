@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+
+*,
+*::before,
+*::after {
+  --primary-color: #9689e5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+body {
+  background-color: #151515;
+}
+
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+section {
+  padding-block: 2rem;
+}
+
+.flip-container {
+  width: 100%;
+  height: 350px;
+  .card {
+    width: 100%;
+    height: 100%;
+  }
+}
+.flip-front {
+  position: relative;
+}
+
+.flip-front::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 0.376rem;
+  inset: 0;
+  background-color: rgba(13 11 44 / 50%);
+  z-index: -999;
+}
+
+.flip-back {
+  background: linear-gradient(135deg, #65799b 0%, #5e2563 100%);
+}
+.flip-container {
+  perspective: 1000px;
+
+  &:hover .flip {
+    transform: rotateY(180deg);
+  }
+
+  .flip {
+    width: 100%;
+    height: 100%;
+  }
+
+  .flip {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+
+    .flip-front {
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+
+    .flip-back {
+      transform: rotateY(180deg);
+    }
+
+    .flip-front,
+    .flip-back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      will-change: transform;
+    }
+  }
+}
+
+.scrolled {
+  background-color: #151515;
+  transition: background-color 0.3s ease-in-out;
+  transition-delay: 0.2457s;
+}
+.details__text{
+  font-size: 11px;
+}
+
+.maskedbg {
+  background-color: rgb(0 0 0 / 60%);
+}
+.gametags {
+  margin: 2px;
+}
+.gametitle h1 {
+  font-size: 3.5rem;
+}
+/* Set the background image */
+.details {
+  background-size: cover;
+  color: azure;
+  width: 100%;
+  /* height: 100vh; */
+  position: relative;
+  z-index: 0;
+}
+/* Add the darkened effect to the image */
+.details::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgb(0 0 0 / 91%), rgb(16 42 139 / 62%));
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.details h5 {
+  color: var(--primary-color);
+  font-weight: bolder;
+}
