@@ -4,11 +4,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "./index.css";
 import {
-  Home, Tags, Games, Genres, Platforms, Publishers, Stores, Developers, Error404, Category_List, GameDetails
+  Home,
+  Tags,
+  Games,
+  Genres,
+  Platforms,
+  Publishers,
+  Stores,
+  Developers,
+  Error404,
+  Category_List,
+  GameDetails,
 } from "./components";
 import Header from "./Navigation/Header";
-
-
 
 function App() {
   return (
@@ -26,6 +34,7 @@ function App() {
           <Route path="/category/:category/:slug" element={<Category_List />} />
           <Route path="/games/:slug" element={<GameDetails />} />
           <Route path="*" element={<Error404 />} />
+          <Route path="/error-404" element={<Error404 />} />
         </Route>
       </Routes>
     </>

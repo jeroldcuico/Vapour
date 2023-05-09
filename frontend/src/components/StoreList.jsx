@@ -6,11 +6,10 @@ export default function StoreList({ gameid }) {
     const [gameName, setgameName] = useState([])
 
     const FetchData = () => {
-        const url = `https://api.rawg.io/api/games/${gameid}/stores?key=3f4a034d7b034f7bbea4371034a6e66d`
+        const url = `https://api.rawg.io/api/games/${gameid}/stores?key=f2057e0e1a99490b98030ffe617db723`
         axios
             .get(url)
             .then((res) => {
-                console.log(res.data);
                 setgameStore(res.data.results);
             })
             .catch((error) => {

@@ -3,14 +3,14 @@ let router = express.Router();
 const axios = require("axios");
 const API_URL = "https://api.rawg.io/api/";
 const params = {
-  key: "3f4a034d7b034f7bbea4371034a6e66d",
+  key: "f2057e0e1a99490b98030ffe617db723",
 };
 
 //!GET THE FOLLOWING API TAG,PLATFORMS ETC
 router.get("/:resource", (req, res) => {
   const resource = req.params.resource;
   const params = {
-    key: "3f4a034d7b034f7bbea4371034a6e66d",
+    key: "f2057e0e1a99490b98030ffe617db723",
     ordering: req.query.ordering,
     page_size: req.query.page_size,
   };

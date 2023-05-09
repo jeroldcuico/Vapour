@@ -7,7 +7,7 @@ import Gameloader from "../assets/Lottie/gamecontroller.json";
 export default function Category_List() {
   const location = useLocation();
   const { item, category } = location.state;
-  const url = `https://api.rawg.io/api/games?key=3f4a034d7b034f7bbea4371034a6e66d&${category}=${item.id}`;
+  const url = `https://api.rawg.io/api/games?key=f2057e0e1a99490b98030ffe617db723&${category}=${item.id}`;
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
