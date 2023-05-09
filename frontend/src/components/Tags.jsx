@@ -14,7 +14,6 @@ export default function Tags() {
         axios
             .get(`http://localhost:8000/api/tags`)
             .then((res) => {
-                console.log(res.data);
                 setTags(res.data.results);
                 setNextPage(res.data.next);
                 setLoading(false);
