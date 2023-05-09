@@ -6,16 +6,20 @@ import Gameloader from "../assets/Lottie/gamecontroller.json";
 import Cards from "./Cards";
 import { API_KEY, API_LINK } from "../constants/API";
 
+
 export default function Games() {
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");
+
+
     const [ordering, setOrdering] = useState("popularity");
 
     const FetchData = (sort) => {
         setLoading(true)
         axios
             .get(`${API_LINK}/games?${API_KEY}&ordering=${sort}`)
+
             .then((res) => {
                 setGames(res.data.results);
                 setNextPage(res.data.next);
@@ -29,6 +33,7 @@ export default function Games() {
     useEffect(() => {
         FetchData(ordering)
     }, [ordering]); //!Initialize first 20 Games
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {

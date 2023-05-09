@@ -13,3 +13,4 @@ export const GameDetails = lazy(() => import('./GameDetails'))
 export const Search = lazy(() => import('./Search'))
 export const Cards = lazy(() => import('./Cards'))
 
+

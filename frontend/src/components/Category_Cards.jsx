@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Category_Cards({ item, category }) {
-
-
     return (
         <>
             <div className="col-md-4 my-2" >

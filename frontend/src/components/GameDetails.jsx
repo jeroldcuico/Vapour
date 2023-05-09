@@ -31,11 +31,11 @@ export default function GameDetails() {
     }
     if (gamedetails.id === undefined) return    //Guard Class for ID grrr
     const ratings = gamedetails.ratings;
-
     return (
         <>
             <div
                 className={`details ${display}`}
+
                 style={{
                     backgroundImage: `url(${gamedetails.background_image})`,
                 }}
@@ -50,11 +50,13 @@ export default function GameDetails() {
                                         <button className="btn btn-info">
                                             <span className="fw-bold">Released: </span>
                                             {gamedetails.released || "Not yet"}
+
                                         </button>
                                     </div>
                                     <div className="px-3">
                                         <h5>ABOUT THE GAME: </h5>
                                         <p>{gamedetails.description_raw || "No data added"}</p>
+
                                     </div>
                                     <div className="px-3">
                                         <h5 className="header-primary">DEVELOPERS: </h5>
@@ -67,6 +69,7 @@ export default function GameDetails() {
                                         <Link
                                             className="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                                             target="_blank"
+
                                             to={gamedetails.website}
                                         >
                                             {gamedetails.name}
@@ -91,6 +94,7 @@ export default function GameDetails() {
                                                         {publisher.name}
                                                     </Link>
                                                 </li>
+
                                             ))}
                                         </ul>
                                     </div>
@@ -125,6 +129,7 @@ export default function GameDetails() {
                                                 className="btn btn-sm btn-dark gametags border"
                                             >
                                                 #{tag.name}
+
                                             </Link>
                                         ))}
                                     </div>
@@ -135,6 +140,7 @@ export default function GameDetails() {
                                                 key={id}
                                                 to={`/category/genre/${genres.slug}`}
                                                 state={{ item: genres, 'category': 'tags' }}
+
                                                 className="btn btn-sm btn-dark gametags border"
                                             >
                                                 {genres.name}
@@ -208,3 +214,4 @@ export default function GameDetails() {
         </>
     );
 }
+
