@@ -12,6 +12,8 @@ export default function Category_List() {
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
 
+  console.log(item);
+
   const FetchData = () => {
     setLoading(true);
     axios
@@ -50,11 +52,11 @@ export default function Category_List() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [games, nextPage]);
-  
+
   return (
     <>
       <div className="container-fluid">
-        <h1 className="text-white text-capitalize"></h1>
+        <h1 className="text-white text-capitalize">{item.name}</h1>
 
         <div className="row">
           {loading ? (

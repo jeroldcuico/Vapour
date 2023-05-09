@@ -14,7 +14,7 @@ export default function Games() {
     const FetchData = (sort) => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/games/?ordering=${sort}`)
+            .get(`http://localhost:8000/api/games?ordering=${sort}`)
             .then((res) => {
                 setGames(res.data.results);
                 setNextPage(res.data.next);

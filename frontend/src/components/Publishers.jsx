@@ -13,7 +13,7 @@ export default function Publishers() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/publishers`)
+            .get(`http://localhost:8000/api/publishers?page_size=20`)
             .then((res) => {
                 setPublishers(res.data.results);
                 setNextPage(res.data.next);

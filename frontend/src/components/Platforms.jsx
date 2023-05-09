@@ -13,7 +13,7 @@ export default function Tags() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/platforms`)
+            .get(`http://localhost:8000/api/platforms?page_size=20`)
             .then((res) => {
                 setPlatforms(res.data.results);
                 setNextPage(res.data.next);

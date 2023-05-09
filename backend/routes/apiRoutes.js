@@ -3,16 +3,16 @@ let router = express.Router();
 const axios = require("axios");
 const API_URL = "https://api.rawg.io/api/";
 const params = {
-  key: "3f4a034d7b034f7bbea4371034a6e66d"
+  key: "3f4a034d7b034f7bbea4371034a6e66d",
 };
-
 
 //!GET THE FOLLOWING API TAG,PLATFORMS ETC
 router.get("/:resource", (req, res) => {
   const resource = req.params.resource;
   const params = {
     key: "3f4a034d7b034f7bbea4371034a6e66d",
-    ordering: req.query.ordering
+    ordering: req.query.ordering,
+    page_size: req.query.page_size,
   };
   axios
     .get(`${API_URL}${resource}`, { params })
@@ -57,18 +57,18 @@ router.get("/category/:category/:slug", (req, res) => {
 router.get("/fetch/:tags/:id", (req, res) => {
   const tags = req.params.tags;
   const id = req.params.id;
-  axios.get(`${API_URL}${tags}/${id}`, { params })
-    .then(response => {
+  axios
+    .get(`${API_URL}${tags}/${id}`, { params })
+    .then((response) => {
       const games = response.data.results;
       for (const game of games) {
         console.log(game.name);
       }
     })
-    .catch(error => {
-      console.error('Error fetching games:', error);
+    .catch((error) => {
+      console.error("Error fetching games:", error);
     });
 });
-
 
 //GET GAME SCREENSHOTS
 router.get("/games/:id/screenshots", (req, res) => {
@@ -82,8 +82,5 @@ router.get("/games/:id/screenshots", (req, res) => {
       res.send(error);
     });
 });
-
-
-
 
 module.exports = router;

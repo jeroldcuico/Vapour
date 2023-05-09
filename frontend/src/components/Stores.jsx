@@ -13,7 +13,7 @@ export default function Stores() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/stores`)
+            .get(`http://localhost:8000/api/stores?page_size=20`)
             .then((res) => {
                 setStores(res.data.results);
                 setNextPage(res.data.next);

@@ -13,7 +13,7 @@ export default function Developers() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/developers/`)
+            .get(`http://localhost:8000/api/developers?page_size=20`)
             .then((res) => {
                 setDevelopers(res.data.results);
                 setNextPage(res.data.next);

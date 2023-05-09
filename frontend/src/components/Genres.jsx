@@ -12,7 +12,7 @@ export default function Genres() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/genres`)
+            .get(`http://localhost:8000/api/genres?page_size=20`)
             .then((res) => {
                 setGenres(res.data.results);
                 setNextPage(res.data.next);
