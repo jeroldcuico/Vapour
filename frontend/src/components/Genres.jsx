@@ -3,6 +3,7 @@ import axios from "axios";
 import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
 import Category_Cards from "./Category_Cards";
+import { API_KEY, API_LINK } from "../constants/API";
 
 export default function Genres() {
     const [genres, setGenres] = useState([]);
@@ -12,7 +13,7 @@ export default function Genres() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/genres?page_size=20`)
+            .get(`${API_LINK}/genres?${API_KEY}&page_size=20`)
             .then((res) => {
                 setGenres(res.data.results);
                 setNextPage(res.data.next);
@@ -62,9 +63,7 @@ export default function Genres() {
                             </div>
                             :
                             genres?.map((item, id) => (
-                                <div className="col-6 col-lg-3 my-2" key={id}>
-                                    <Category_Cards item={item} category={'genres'} />
-                                </div>
+                                <Category_Cards key={id} item={item} category={'genres'} />
                             ))}
                 </div>
             </div>

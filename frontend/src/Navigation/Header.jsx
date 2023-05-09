@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react'
-import { Link, Outlet } from 'react-router-dom';
+import React, { Suspense, useEffect, useState } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 export default function Header() {
 
@@ -13,9 +13,24 @@ export default function Header() {
         { label: "Publishers", path: "/publishers" },
         { label: "Developers", path: "/developers" },
     ];
+
+    const [query, setQuery] = useState("");
+    let navigate = useNavigate();
+    const handleSearch = (e) => {
+        setQuery(e.target.value);
+
+        if (e.target.value) {
+            setTimeout(() => {
+                navigate(`/search?q=${e.target.value}`);
+            }, 1000);
+        } else {
+            navigate("/games");
+        }
+    };
+
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-body-secondary bg-dark">
+            <nav className={`navbar navbar-expand-lg sticky-top py-3`}>
                 <div className="container-fluid">
                     <a className="navbar-brand text-white" href="/">VAPOUR</a>
                     <button
@@ -43,6 +58,8 @@ export default function Header() {
                             <input
                                 className="form-control me-2"
                                 type="search"
+                                value={query}
+                                onChange={handleSearch}
                                 placeholder="Search"
                                 aria-label="Search"
                             />

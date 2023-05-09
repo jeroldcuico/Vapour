@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
+import Cards from "./Cards";
+import { API_KEY, API_LINK } from "../constants/API";
 
 export default function Category_List() {
   const location = useLocation();
-  const { item, category } = location.state;
-  const url = `https://api.rawg.io/api/games?key=f2057e0e1a99490b98030ffe617db723&${category}=${item.id}`;
+  const { item, category } = location.state ?? { item: 0 };
+  const url = `${API_LINK}/games?${API_KEY}&${category}=${item.id}`;
   const [games, setGames] = useState([]);
+  const [display, setDisplay] = useState("d-none");
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
 
@@ -21,6 +24,7 @@ export default function Category_List() {
       .then((res) => {
         setGames(res.data.results);
         setNextPage(res.data.next);
+        setDisplay('')
         setLoading(false);
       })
       .catch((error) => {
@@ -30,7 +34,14 @@ export default function Category_List() {
 
   useEffect(() => {
     FetchData();
+
   }, []); //!Initialize first 20 Games
+
+
+  if (item === 0) {
+    const navigate = useNavigate();
+    navigate("/error-404");
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,10 +63,15 @@ export default function Category_List() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [games, nextPage]);
-
   return (
     <>
-      <div className="container-fluid">
+      <div className={`container-fluid details ${display}`}
+        style={{
+          backgroundImage: `url(${item.image_background})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
         <h1 className="text-white text-capitalize">{item.name}</h1>
 
         <div className="row">
@@ -67,64 +83,7 @@ export default function Category_List() {
             </div>
           ) : (
             games?.map((item, id) => (
-              <div className="col-6 col-lg-3 my-2" key={id}>
-                <div className="flip-container">
-                  <div className="flip flipPreview">
-                    <div
-                      className="card text-white text-center flip-front"
-                      style={{
-                        backgroundImage: `url(${item.background_image})`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                      }}
-                    >
-                      <div className="card-body d-flex flex-column justify-content-center shadow-lg p-3 rounded">
-                        <h3 className="card-title fw-bolder">{item.name}</h3>
-                      </div>
-                    </div>
-                    <div className="card text-center flip-back">
-                      <div className="card-body d-flex flex-column">
-                        <Link
-                          className="text-white"
-                          to={`/details/${item.slug}`}
-                        >
-                          {item.name}
-                        </Link>
-                        <ul className="list-group my-2">
-                          <li className="list-group-item">
-                            Ratings: {[item.rating]}
-                          </li>
-                          <li className="list-group-item">
-                            Top Ratings: {[item.rating_top]}
-                          </li>
-                          <li className="list-group-item">
-                            Review Counts: {[item.reviews_count]}
-                          </li>
-                          <li className="list-group-item">
-                            Released: {[item.released]}
-                          </li>
-                          <li className="list-group-item">
-                            Playtime: {[item.playtime]}
-                          </li>
-                        </ul>
-                        <div className="d-flex gap-2 align-items-center justify-content-center">
-                          <a href="#" className="btn btn-sm btn-success">
-                            Add to Collection
-                          </a>
-                          <Link
-                            to={`/games/${item.slug}`}
-                            state={item}
-                            type="button"
-                            className="btn btn-sm btn-dark"
-                          >
-                            Game Details
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Cards item={item} key={id} />
             ))
           )}
         </div>

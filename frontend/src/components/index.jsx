@@ -10,4 +10,6 @@ export const Developers = lazy(() => import('./Developers'))
 export const Error404 = lazy(() => import('./Error404'))
 export const Category_List = lazy(() => import('./Category_List'))
 export const GameDetails = lazy(() => import('./GameDetails'))
+export const Search = lazy(() => import('./Search'))
+export const Cards = lazy(() => import('./Cards'))
 
