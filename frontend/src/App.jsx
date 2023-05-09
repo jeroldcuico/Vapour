@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+
 import {
   Home,
   Tags,
@@ -14,6 +15,7 @@ import {
   GameDetails, Search
 } from "./components";
 import Header from "./Navigation/Header";
+
 
 function App() {
   return (

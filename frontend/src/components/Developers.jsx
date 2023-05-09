@@ -14,6 +14,7 @@ export default function Developers() {
         setLoading(true)
         axios
             .get(`${API_LINK}/developers?${API_KEY}&page_size=20`)
+
             .then((res) => {
                 setDevelopers(res.data.results);
                 setNextPage(res.data.next);
@@ -58,12 +59,14 @@ export default function Developers() {
                         (loading) ?
                             <div className="d-flex align-items-center justify-content-center vh-100">
                                 <div style={{ width: 200 }}>
+
                                     <Lottie animationData={Gameloader} loop={true} />
                                 </div>
                             </div>
                             :
                             developers?.map((item, id) => (
                                 <Category_Cards key={id} item={item} category={'developers'} />
+
                             ))}
                 </div>
             </div>
