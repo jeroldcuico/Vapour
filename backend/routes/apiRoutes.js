@@ -3,9 +3,8 @@ let router = express.Router();
 const axios = require("axios");
 const API_URL = "https://api.rawg.io/api/";
 const params = {
-  key: "3f4a034d7b034f7bbea4371034a6e66d"
+  key: "f2057e0e1a99490b98030ffe617db723",
 };
-
 
 //!GET THE FOLLOWING API TAG,PLATFORMS ETC
 router.get("/:resource", (req, res) => {
@@ -82,8 +81,4 @@ router.get("/games/:id/screenshots", (req, res) => {
       res.send(error);
     });
 });
-
-
-
-
 module.exports = router;

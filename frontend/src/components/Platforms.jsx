@@ -4,6 +4,8 @@ import axios from "axios";
 import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
 import Category_Cards from "./Category_Cards";
+import { API_KEY, API_LINK } from "../constants/API";
+
 
 export default function Tags() {
     const [platforms, setPlatforms] = useState([]);
@@ -13,7 +15,8 @@ export default function Tags() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/platforms`)
+            .get(`${API_LINK}/platforms?${API_KEY}&page_size=20`)
+
             .then((res) => {
                 setPlatforms(res.data.results);
                 setNextPage(res.data.next);
@@ -63,9 +66,8 @@ export default function Tags() {
                             </div>
                             :
                             platforms?.map((item, id) => (
-                                <div className="col-6 col-lg-3 my-2" key={id}>
-                                    <Category_Cards item={item} category={'platforms'} />
-                                </div>
+                                <Category_Cards key={id} item={item} category={'platforms'} />
+
                             ))}
                 </div>
             </div>

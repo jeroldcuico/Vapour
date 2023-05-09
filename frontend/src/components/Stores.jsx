@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Lottie from "lottie-react";
-import Gameloader from "../assets/Lottie/gamecontroller.json";
+import Gameloader from "../assets/Lottie/stores.json";
 import Category_Cards from "./Category_Cards";
+import { API_KEY, API_LINK } from "../constants/API";
+
 
 export default function Stores() {
     const [stores, setStores] = useState([]);
@@ -13,7 +15,9 @@ export default function Stores() {
     const FetchData = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:8000/api/stores`)
+
+            .get(`${API_LINK}/stores?${API_KEY}&page_size=20`)
+
             .then((res) => {
                 setStores(res.data.results);
                 setNextPage(res.data.next);
@@ -63,9 +67,8 @@ export default function Stores() {
                             </div>
                             :
                             stores?.map((item, id) => (
-                                <div className="col-6 col-lg-3 my-2" key={id}>
-                                    <Category_Cards item={item} category={'stores'}/>
-                                </div>
+                                <Category_Cards key={id} item={item} category={'stores'} />
+
                             ))}
                 </div>
             </div>

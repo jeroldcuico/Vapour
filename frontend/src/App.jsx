@@ -1,13 +1,20 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle";
-import "./index.css";
+
 import {
-  Home, Tags, Games, Genres, Platforms, Publishers, Stores, Developers, Error404, Category_List, GameDetails
+  Home,
+  Tags,
+  Games,
+  Genres,
+  Platforms,
+  Publishers,
+  Stores,
+  Developers,
+  Error404,
+  Category_List,
+  GameDetails, Search
 } from "./components";
 import Header from "./Navigation/Header";
-
 
 
 function App() {
@@ -25,7 +32,9 @@ function App() {
           <Route path="/stores" element={<Stores />} />
           <Route path="/category/:category/:slug" element={<Category_List />} />
           <Route path="/games/:slug" element={<GameDetails />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<Error404 />} />
+          <Route path="/error-404" element={<Error404 />} />
         </Route>
       </Routes>
     </>

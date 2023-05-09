@@ -1,52 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Lottie from "lottie-react";
-import Gameloader from "../assets/Lottie/gamecontroller.json";
 import Screenshots from "./Screenshots";
 import StoreList from "./StoreList";
 import Ratings from "./Ratings";
-import Header from "../Navigation/Header";
+import { API_KEY, API_LINK } from "../constants/API";
 
 export default function GameDetails() {
     const [gamedetails, setGameDetails] = useState({});
-    const [loading, setLoading] = useState(true);
     const location = useLocation();
-    const { id } = location.state;
+    const [display, setDisplay] = useState("d-none");
+    const { id } = location.state ?? { id: 0 };
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/api/games/${id}`)
+            .get(`${API_LINK}/games/${id}?${API_KEY}`)
             .then((res) => {
                 setGameDetails(res.data);
+                setDisplay("");
                 document.title = res.data.name;
-                setLoading(false);
             })
             .catch((error) => {
-                setfetchError(true);
-                res.send(error);
+                console.log(`error`);
             });
     }, []);
 
-    if (loading) {
-        return (
-            <>
-                <div className="d-flex align-items-center justify-content-center vh-100">
-                    <div style={{ width: 400 }}>
-                        <Lottie animationData={Gameloader} loop={true} />
-                    </div>
-                </div>
-            </>
-        );
+    if (id === 0) {
+        const navigate = useNavigate();
+        console.log(`test`);
+        navigate("/error-404");
     }
+    if (gamedetails.id === undefined) return    //Guard Class for ID grrr
     const ratings = gamedetails.ratings;
-    const keys = Object.keys(gamedetails);
-    // const tags = keys.find((key) => key === "tags");
-    // const genre = keys.find((key) => key === "genres");
-
     return (
         <>
             <div
-                className="details"
+                className={`details ${display}`}
+
                 style={{
                     backgroundImage: `url(${gamedetails.background_image})`,
                 }}
@@ -60,12 +49,14 @@ export default function GameDetails() {
                                         <h1 className="text-white">{gamedetails.name}</h1>
                                         <button className="btn btn-info">
                                             <span className="fw-bold">Released: </span>
-                                            {gamedetails.released}
+                                            {gamedetails.released || "Not yet"}
+
                                         </button>
                                     </div>
                                     <div className="px-3">
                                         <h5>ABOUT THE GAME: </h5>
-                                        <p>{gamedetails.description_raw}</p>
+                                        <p>{gamedetails.description_raw || "No data added"}</p>
+
                                     </div>
                                     <div className="px-3">
                                         <h5 className="header-primary">DEVELOPERS: </h5>
@@ -77,6 +68,8 @@ export default function GameDetails() {
                                         <h5>WEBSITE</h5>
                                         <Link
                                             className="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                            target="_blank"
+
                                             to={gamedetails.website}
                                         >
                                             {gamedetails.name}
@@ -90,7 +83,18 @@ export default function GameDetails() {
                                         <h5>PUBLISHERS: </h5>
                                         <ul>
                                             {gamedetails.publishers?.map((publisher, id) => (
-                                                <li key={id}>{publisher.name}</li>
+                                                <li key={id}>
+                                                    <Link
+                                                        key={id}
+                                                        id={id}
+                                                        to={`/category/tags/${publisher.slug}`}
+                                                        state={{ item: publisher, 'category': 'publishers' }}
+                                                        className="text-white text-decoration-none"
+                                                    >
+                                                        {publisher.name}
+                                                    </Link>
+                                                </li>
+
                                             ))}
                                         </ul>
                                     </div>
@@ -121,10 +125,11 @@ export default function GameDetails() {
                                                 key={id}
                                                 id={id}
                                                 to={`/category/tags/${tag.slug}`}
-                                                state={{ 'item': tag }}
+                                                state={{ item: tag, 'category': 'tags' }}
                                                 className="btn btn-sm btn-dark gametags border"
                                             >
-                                                {tag.name}
+                                                #{tag.name}
+
                                             </Link>
                                         ))}
                                     </div>
@@ -134,7 +139,8 @@ export default function GameDetails() {
                                             <Link
                                                 key={id}
                                                 to={`/category/genre/${genres.slug}`}
-                                                state={{ 'item': genres }}
+                                                state={{ item: genres, 'category': 'tags' }}
+
                                                 className="btn btn-sm btn-dark gametags border"
                                             >
                                                 {genres.name}
@@ -143,17 +149,15 @@ export default function GameDetails() {
                                     </div>
                                     <div className="ratings py-2">
                                         <h5>RATINGS</h5>
-                                        <div className="progress" style={{ height: "3rem" }}>
-                                            <Ratings
-                                                data={ratings}
-                                                colors={[
-                                                    "bg-success",
-                                                    "bg-warning",
-                                                    "bg-danger",
-                                                    "bg-info",
-                                                ]}
-                                            />
-                                        </div>
+                                        <Ratings
+                                            data={ratings}
+                                            colors={[
+                                                "bg-success",
+                                                "bg-warning",
+                                                "bg-danger",
+                                                "bg-info",
+                                            ]}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -210,3 +214,4 @@ export default function GameDetails() {
         </>
     );
 }
+

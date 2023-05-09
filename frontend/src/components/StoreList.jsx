@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
+import { API_KEY, API_LINK } from "../constants/API";
+
 
 export default function StoreList({ gameid }) {
     const [gameStore, setgameStore] = useState([])
     const [gameName, setgameName] = useState([])
 
     const FetchData = () => {
-        const url = `https://api.rawg.io/api/games/${gameid}/stores?key=3f4a034d7b034f7bbea4371034a6e66d`
+        const url = `${API_LINK}/games/${gameid}/stores?${API_KEY}`
         axios
             .get(url)
             .then((res) => {
-                console.log(res.data);
+
                 setgameStore(res.data.results);
             })
             .catch((error) => {
@@ -22,7 +24,8 @@ export default function StoreList({ gameid }) {
         FetchData()
 
         axios
-            .get('http://localhost:8000/api/stores')
+            .get(`${API_LINK}/stores?${API_KEY}`)
+
             .then((res) => {
                 setgameName(res.data.results);
             })
@@ -38,7 +41,8 @@ export default function StoreList({ gameid }) {
     return (
         <>{
             combinedAPI.map((item, id) => (
-                <div key={id} className="btn-group" role="group" aria-label="Basic example">
+                <div key={id} className="btn-group my-2" role="group" aria-label="Basic example">
+
                     <a type="button" target="_blank" href={item.url} className="btn btn-sm btn-dark mx-1 border" >{item.name}</a>
                 </div>
             ))
