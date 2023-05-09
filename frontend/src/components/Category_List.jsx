@@ -5,7 +5,10 @@ import Header from '../Navigation/Header'
 export default function Category_List() {
 
     const location = useLocation()
+    
     const { item, category } = location.state
+
+    console.log(item);
 
     console.log(item);
     return (
