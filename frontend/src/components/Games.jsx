@@ -61,7 +61,7 @@ export default function Games() {
                 ordering = "name";
                 break;
             case "popularity":
-                ordering = "popularity";
+                ordering = "-popularity";
                 break;
             case "released":
                 ordering = "released";
@@ -82,7 +82,6 @@ export default function Games() {
                 ordering = "default";
                 break;
         }
-        setSelectedOption(e.target.value);
         setOrdering(e.target.value);
     };
 
@@ -90,7 +89,7 @@ export default function Games() {
         { value: "rating", label: "Rating" },
         { value: "name", label: "Name" },
         { value: "popularity", label: "Popularity" },
-        { value: "released", label: "Released" },
+        { value: "-released", label: "Released" },
         { value: "created", label: "Created" },
         { value: "updated", label: "Updated" },
         { value: "metacritic", label: "MetaCritic" },
