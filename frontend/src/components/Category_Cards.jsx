@@ -12,7 +12,6 @@ export default function Category_Cards({ item, category }) {
                         backgroundSize: 'cover',
                     }}
                 >
-
                     <div className="category__header">
                         <Link className='link border-none text-decoration-none rounded h-100' to={`/category/${category}/${item.slug}`} state={{ item, category }}>
                             <h3 className="card-title fw-bolder link-light  ">{item.name}</h3>
