@@ -29,7 +29,8 @@ export default function Screenshots({ gameid }) {
             />
           </Carousel.Item>
         ))}
-      </Carousel>      
+      </Carousel>
+      
     </>
   );
 }
