@@ -5,7 +5,7 @@ export default function Cards({ item }) {
 
     return (
         <>
-            <div className={`col-6 col-lg-3 my-2`}>
+            <div className="col-md-4 my-2 my-2">
                 <div className="flip-container">
                     <div className="flip flipPreview">
                         <div
