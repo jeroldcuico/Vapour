@@ -31,10 +31,12 @@ export default function Trailers({ gameid }) {
         </div>
       ) : (
         <div className="trailers">
-          {extractedData.map((trailer, index) => (
+          {extractedData.map((trailer) => (
             <iframe
               key={trailer["480"]}
               src={trailer["480"]}
+              width={'100%'}
+              height={'200px'}
             />
           ))}
         </div>
