@@ -16,8 +16,6 @@ export default function Category_List() {
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
 
-  console.log(item);
-
   const FetchData = () => {
     setLoading(true);
     axios

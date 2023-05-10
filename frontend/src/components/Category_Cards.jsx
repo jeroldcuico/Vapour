@@ -17,8 +17,8 @@ export default function Category_Cards({ item, category }) {
                             <h3 className="card-title fw-bolder link-light  ">{item.name}</h3>
                         </Link>
                     </div>
-                    <div className="category__button">
-                        {category === 'stores' && <button className='btn btn-sm btn-dark'> Follow</button>}
+                    <div className="category__button py-3">
+                        {category === 'stores' && <button className='btn btn-dark'> Follow</button>}
                     </div>
                     <div className="category__footer">
                         <h6>Games Counted: {item.games_count}</h6>
