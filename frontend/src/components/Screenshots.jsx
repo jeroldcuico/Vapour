@@ -5,22 +5,22 @@ import Lootie from "lottie-react";
 import Gallery from "../assets/Lottie/gallery.json";
 import { API_KEY, API_LINK } from "../constants/API";
 
-export default function Home() {
-  const [popular, setPopular] = useState({});
+export default function Screenshots({ gameid }) {
+  const [screenshots, setscreenshots] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get(`https://rawg.io/api/collections/lists/main`)
+      .get(`${API_LINK}/games/${gameid}/screenshots?${API_KEY}`)
       .then((res) => {
-        setPopular(res.data.results);
+        setscreenshots(res.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        res.send(error);
       });
   }, []);
-  console.log(popular);
+
   return (
     <>
       {
@@ -32,10 +32,10 @@ export default function Home() {
           </div>
           :
           <Carousel interval={3000} pause={true}>
-            {popular.results?.map((screenshot, index) => (
+            {screenshots.results?.map((screenshot, index) => (
               <Carousel.Item key={index}>
                 <img
-                  src={screenshot.game_}
+                  src={screenshot.image}
                   className="rounded-2"
                   width={"100%"}
                   alt={`Image ${index}`}

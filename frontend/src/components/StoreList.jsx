@@ -1,32 +1,49 @@
 import { useEffect, useState } from "react"
-import { APP_KEY, GAME_DETAILS_URL_API } from "../helpers/Api"
-import { fetchGamesStore, fetchCustomURL } from "../helpers/ApiService"
+import axios from 'axios'
+import { API_KEY, API_LINK } from "../constants/API";
+
 
 export default function StoreList({ gameid }) {
     const [gameStore, setgameStore] = useState([])
     const [gameName, setgameName] = useState([])
 
+    const FetchData = () => {
+        const url = `${API_LINK}/games/${gameid}/stores?${API_KEY}`
+        axios
+            .get(url)
+            .then((res) => {
+
+                setgameStore(res.data.results);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     useEffect(() => {
-        const storeLinkAPI = `${GAME_DETAILS_URL_API}${gameid}/stores?key=${APP_KEY}`
+        FetchData()
 
-        fetchCustomURL(storeLinkAPI, (data) => {
-            setgameStore(data.results);
-        })
+        axios
+            .get(`${API_LINK}/stores?${API_KEY}`)
 
-        fetchGamesStore((data) => {
-            setgameName(data.results)
-        })
+            .then((res) => {
+                setgameName(res.data.results);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, [])
 
-    const combinedAPI = gameStore.map((item , id) => {
+    const combinedAPI = gameStore.map((item, id) => {
         const find = gameName.find(item2 => item2.id === item.store_id)
         return find ? { ...item, ...find } : item
     });
     return (
         <>{
             combinedAPI.map((item, id) => (
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <a key={id} type="button" target="_blank" href={item.url}  className="btn btn-dark mx-1" >{item.name}</a>
+                <div key={id} className="btn-group my-2" role="group" aria-label="Basic example">
+
+                    <a type="button" target="_blank" href={item.url} className="btn btn-sm btn-dark mx-1 border" >{item.name}</a>
                 </div>
             ))
         }
