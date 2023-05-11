@@ -14,14 +14,14 @@ body {
   background-color: #151515;
 }
 
-.navbar {
+.navbar,
+.sidebar {
   background-color: #151515;
 }
 
 #root h1 {
-  color: aliceblue
+  color: aliceblue;
 }
-
 
 section {
   padding-block: 2rem;
@@ -95,11 +95,6 @@ section {
   z-index: 1;
 }
 
-
-.card-category:hover {
-  cursor: pointer;
-}
-
 .card-category::after {
   content: "";
   width: 100%;
@@ -111,8 +106,6 @@ section {
   inset: 0;
   z-index: -99999;
 }
-
-
 
 @keyframes flip {
   from {
@@ -149,10 +142,8 @@ section {
 /* Set the background image */
 .details {
   background-size: cover;
-
   background-position: center;
   background-repeat: no-repeat;
-
   color: azure;
   width: 100%;
   position: relative;
@@ -176,4 +167,36 @@ section {
 .details h5 {
   color: var(--primary-color);
   font-weight: bolder;
+}
+
+/* Sign Up / Login Header Details */
+li.account__data:hover {
+  background-color: var(--primary-color);
+  border-radius: 0.434rem;
+}
+.account__data > * {
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--primary-color);
+}
+.account__data a:hover {
+  color: azure;
+}
+
+li.nav-item:hover {
+  background-color: var(--primary-color);
+  border-radius: 0.25rem;
+}
+
+.nav-item a:hover {
+  color: azure;
+}
+
+.active {
+  background-color: var(--primary-color);
+  border-radius: 0.25rem;
+}
+
+.navbar-brand {
+  font-size: 2.5rem;
 }

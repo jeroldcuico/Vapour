@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,13 +9,11 @@ import { API_KEY, API_LINK } from "../constants/API";
 export default function Category_List() {
   const location = useLocation();
   const { item, category } = location.state ?? { item: 0 };
-  const url = `${API_LINK}/games?${API_KEY}&${category}=${item.id}`;
   const [games, setGames] = useState([]);
   const [display, setDisplay] = useState("d-none");
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
-
-  console.log(item);
+  const url = `${API_LINK}/games?${API_KEY}&${category}=${item.id}`;
 
   const FetchData = () => {
     setLoading(true);
@@ -25,7 +22,7 @@ export default function Category_List() {
       .then((res) => {
         setGames(res.data.results);
         setNextPage(res.data.next);
-        setDisplay('')
+        setDisplay("");
         setLoading(false);
       })
       .catch((error) => {
@@ -35,9 +32,7 @@ export default function Category_List() {
 
   useEffect(() => {
     FetchData();
-
   }, []); //!Initialize first 20 Games
-
 
   if (item === 0) {
     const navigate = useNavigate();
@@ -53,8 +48,7 @@ export default function Category_List() {
             .then((data) => {
               setGames((prevGames) => [...prevGames, ...data.results]);
               setNextPage(data.next);
-            })
-            .catch((error) => console.error(error));
+            });
         }
       }
     };
@@ -66,7 +60,8 @@ export default function Category_List() {
   }, [games, nextPage]);
   return (
     <>
-      <div className={`container-fluid details ${display}`}
+      <div
+        className={`container-fluid details ${display}`}
         style={{
           backgroundImage: `url(${item.image_background})`,
           backgroundPosition: "center",
@@ -83,9 +78,7 @@ export default function Category_List() {
               </div>
             </div>
           ) : (
-            games?.map((item, id) => (
-              <Cards item={item} key={id} />
-            ))
+            games?.map((item, id) => <Cards item={item} key={id} />)
           )}
         </div>
       </div>

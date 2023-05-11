@@ -86,10 +86,10 @@ export default function Games() {
     };
 
     const options = [
-        { value: "rating", label: "Rating" },
+        { value: "-rating", label: "Rating" },
         { value: "name", label: "Name" },
         { value: "popularity", label: "Popularity" },
-        { value: "-released", label: "Released" },
+        { value: "released", label: "Released" },
         { value: "created", label: "Created" },
         { value: "updated", label: "Updated" },
         { value: "metacritic", label: "MetaCritic" },
@@ -102,7 +102,7 @@ export default function Games() {
         <>
             <div className="container-fluid">
                 <h1 className="text-white">All Games</h1>
-                <div className="d-flex justify-content-end align-items-center mb-3">
+                <div className="d-flex justify-content-start align-items-center mb-3">
                     <label htmlFor="sortby" className="text-white">
                         Sort by:{" "}
                     </label>

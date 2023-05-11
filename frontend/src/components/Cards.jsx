@@ -23,7 +23,7 @@ export default function Cards({ item }) {
                         </div>
                         <div className="card text-center flip-back">
                             <div className="card-body d-flex flex-column">
-                                <Link className="text-white" to={`/details/${item.slug}`}>
+                                <Link className="text-white" to={`/games/${item.slug}`} state={item}>
                                     {item.name}
                                 </Link>
                                 <ul className="list-group my-2">
