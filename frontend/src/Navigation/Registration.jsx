@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Validation } from "../functions/Validation";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Login() {
+export default function Registration() {
   const navigate = useNavigate();
   const [response, setResponse] = useState(null);
   const [fields, setFields] = useState([
@@ -15,6 +15,21 @@ export default function Login() {
         {
           rule: (value) => value.length > 0,
           message: "Username is required",
+        },
+      ],
+    },
+    {
+      type: "email",
+      name: "email",
+      value: "",
+      validations: [
+        {
+          rule: (value) => value.length > 0,
+          message: "Email is required",
+        },
+        {
+          rule: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+          message: "Invalid email address",
         },
       ],
     },
@@ -35,7 +50,7 @@ export default function Login() {
     },
   ]);
   const [errors, setErrors] = useState({});
-  const handleLogin = async () => {
+  const handleRegistration = async () => {
     // Reset errors
     setErrors({});
     // Perform form validation using Validation component
@@ -51,9 +66,15 @@ export default function Login() {
         return data;
       }, {});
       const response = await axios.post(
-        "http://localhost:8000/account/login",
+        "http://localhost:8000/account/register",
         formData
       );
+      if (response.data.status === "success") {
+        //redirect to login
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
       setResponse(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -76,10 +97,9 @@ export default function Login() {
             <div className="col-lg-10 offset-lg-1">
               <div className="bg-white shadow rounded">
                 <div className="row">
-                  <div className="col-md-5 ps-0 d-none d-md-block bg-dark"></div>
                   <div className="col-md-7 pe-0">
                     <div className="form-left h-100 py-5 px-5">
-                      <h3 className="mb-3">Login Now</h3>
+                      <h3 className="mb-3">Sign Up</h3>
                       {response && (
                         <span className="error">{response.message}</span>
                       )}
@@ -113,24 +133,26 @@ export default function Login() {
                             </div>
                           </div>
                         ))}
+
                         <div className="col-12">
                           <p>
-                            Don't have an account?{" "}
+                            Already have an account?{" "}
                             <span>
-                              <Link to={"/register"}>Sign up now!</Link>
+                              <Link to={"/login"}>Click me!</Link>
                             </span>{" "}
                           </p>
                           <button
                             type="button"
                             className="btn btn-primary px-4 float-end mt-4"
-                            onClick={handleLogin}
+                            onClick={handleRegistration}
                           >
-                            Login
+                            Sign Up
                           </button>
                         </div>
                       </form>
                     </div>
                   </div>
+                  <div className="col-md-5 ps-0 d-none d-md-block bg-dark"></div>
                 </div>
               </div>
             </div>

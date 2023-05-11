@@ -6,31 +6,31 @@ import StoreList from "./StoreList";
 import Ratings from "./Ratings";
 import { API_KEY, API_LINK } from "../constants/API";
 import Trailers from "./Trailers";
-import Sidebar from "../Navigation/Sidebar";
 
 export default function GameDetails() {
   const [gamedetails, setGameDetails] = useState({});
   const location = useLocation();
   const [display, setDisplay] = useState("d-none");
   const { id } = location.state ?? { id: 0 };
+  const navigate = useNavigate();
   useEffect(() => {
-    axios
-      .get(`${API_LINK}/games/${id}?${API_KEY}`)
-      .then((res) => {
-        setGameDetails(res.data);
-        setDisplay("");
-        document.title = res.data.name;
-      })
-      .catch((error) => {
-        console.log(`error`);
-      });
-  }, []);
+    if (id === 0) {
+      console.log(`test`);
+      navigate("/error-404");
+    } else {
+      axios
+        .get(`${API_LINK}/games/${id}?${API_KEY}`)
+        .then((res) => {
+          setGameDetails(res.data);
+          setDisplay("");
+          document.title = res.data.name;
+        })
+        .catch((error) => {
+          console.log(`error`);
+        });
+    }
+  }, [id, navigate]);
 
-  if (id === 0) {
-    const navigate = useNavigate();
-    console.log(`test`);
-    navigate("/error-404");
-  }
   if (gamedetails.id === undefined) return; //Guard Class for ID grrr
   const ratings = gamedetails.ratings;
   return (
@@ -43,10 +43,7 @@ export default function GameDetails() {
       >
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md p-0 ">
-              <Sidebar />
-            </div>
-            <div className="col-md-10">
+            <div className="col-md-12">
               <section>
                 <div className="rounded-2 p-3 maskedbg">
                   <div className="row">

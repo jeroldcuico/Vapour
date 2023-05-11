@@ -12,11 +12,12 @@ import {
   Developers,
   Error404,
   Category_List,
-  GameDetails, Search
+  GameDetails,
+  Search,
 } from "./components";
 import Header from "./Navigation/Header";
 import Login from "./Navigation/Login";
-
+import Registration from "./Navigation/Registration";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/developers" element={<Developers />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
           <Route path="/category/:category/:slug" element={<Category_List />} />
           <Route path="/games/:slug" element={<GameDetails />} />
           <Route path="/search" element={<Search />} />
