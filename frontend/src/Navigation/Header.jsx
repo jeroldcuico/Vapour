@@ -28,10 +28,6 @@ export default function Header() {
     }
   };
 
-  const getPagetitle = (item) => {
-    document.title = item
-    return item;
-  }
 
   return (
     <>
@@ -55,7 +51,6 @@ export default function Header() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {menus?.map((item, id) => (
                 <li className={`nav-item ${location.pathname === item.path ? 'active' : ''}`} key={id}>
-                  <input type="text" value={getPagetitle(item.label)} className="d-none" />
                   <Link className="nav-link text-white" to={item.path}>
                     {item.label}
                   </Link>

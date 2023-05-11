@@ -18,6 +18,7 @@ import {
 import Header from "./Navigation/Header";
 import Login from "./Navigation/Login";
 import Registration from "./Navigation/Registration";
+import Test from "./Test";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/stores" element={<Stores />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/category/:category/:slug" element={<Category_List />} />
           <Route path="/games/:slug" element={<GameDetails />} />
           <Route path="/search" element={<Search />} />
