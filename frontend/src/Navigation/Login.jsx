@@ -52,7 +52,7 @@ export default function Login() {
     const formData = fields.reduce((data, field) => {
       data[field.name] = field.value;
       return data;
-    }, {});
+    }, {});    
     try {
       login(formData);
     } catch (error) {

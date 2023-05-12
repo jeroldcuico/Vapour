@@ -91,7 +91,7 @@ export default function Profile() {
               <h1>{username}</h1>
               <div className="d-flex gap-2">
                 <button onClick={handleLogout} className="btn btn-xl btn-danger">LOGOUT</button>
-                <button onClick={handleLogout} className="btn btn-xl btn-primary">EDIT PROFILE</button>
+                <Link to={'/editprofile'} className="btn btn-xl btn-primary">EDIT PROFILE</Link>
               </div>
             </div>
           </div>

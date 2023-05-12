@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
       credentials
     );
     const data = await response.data;
-    if (data.success === true) {
+    if (data.success) {
       setLoggedIn(true);
       setUsername(credentials.username);
       setId(data.id)
@@ -34,7 +34,9 @@ export default function AuthProvider({ children }) {
       localStorage.setItem("id", data.id);
       localStorage.setItem("username", credentials.username);
       setMessage("Logged in successfully");
-      navigate('/profile')
+      setTimeout(() => {
+        navigate('/profile')
+      }, 2000);
     } else {
       setMessage(data.message);
     }

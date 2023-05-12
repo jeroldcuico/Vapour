@@ -51,7 +51,8 @@ export default function Registration() {
     },
   ]);
   const [errors, setErrors] = useState({});
-  const handleRegistration = async () => {
+  const handleRegistration = async (e) => {
+    e.preventDefault();
     // Reset errors
     setErrors({});
     // Perform form validation using Validation component
@@ -104,7 +105,7 @@ export default function Registration() {
                       {response && (
                         <span className="error">{response.message}</span>
                       )}
-                      <form className="row g-4">
+                      <form className="row g-4" onSubmit={handleRegistration}>
                         {fields?.map((field, index) => (
                           <div key={field.name} className="col-12">
                             {errors[field.name] && (

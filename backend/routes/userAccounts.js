@@ -54,6 +54,23 @@ router.post("/register", (req, res) => {
   }
 });
 
+
+// Update User Route
+router.put('/users/:id', (req, res) => {
+  const userId = parseInt(req.params.id);
+  const updatedUser = req.body;
+
+  // Find the user in the users array
+  const userIndex = users.findIndex((user) => user.id === userId);
+  if (userIndex === -1) {
+    return res.send({ message: 'User not found' });
+  }
+
+  // Update the user object in the users array
+  users[userIndex] = { ...users[userIndex], ...updatedUser };
+  return res.send({ message: 'Profile updated successfully' });
+});
+
 //Logout using Random Token
 router.post('/logout', (req, res) => {
   const { token } = req.body;

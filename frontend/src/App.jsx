@@ -20,6 +20,7 @@ import Profile from "./Dashboard/Profile";
 import Registration from "./Navigation/Registration";
 import Test from "./Test";
 import { AuthContext } from "./hooks/AuthProvider";
+import EditProfile from "./Dashboard/EditProfile";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -35,6 +36,7 @@ function App() {
           <Route path="/games" element={<Games />} />
           <Route path="/tags" element={<Tags />} />
           <Route path="/genres" element={<Genres />} />
+          <Route path="/editprofile" element={<EditProfile userlogged={authContext} />} />
           <Route path="/platforms" element={<Platforms />} />
           <Route path="/publishers" element={<Publishers />} />
           <Route path="/developers" element={<Developers />} />
