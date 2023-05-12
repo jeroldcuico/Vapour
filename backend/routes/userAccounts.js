@@ -34,7 +34,7 @@ router.post("/login", (req, res) => {
   if (findUser) {
     const token = Math.random().toString(36).substring(7);
     loggedInUsers.push({ username, token });
-    res.json({ success: true, token , findUser , message : "Login Successfully" });
+    res.json({ success: true, token, id: findUser.id, message: "Login Successfully" });
   } else {
     res.json({ success: false, message: "Invalid credentials" });
   }
@@ -50,7 +50,7 @@ router.post("/register", (req, res) => {
     // Save the user data in memory
     const user = { id: users.length + 1, username, email, password };
     users.push(user);
-    res.send({ message: "User registered successfully", status: true});
+    res.send({ message: "User registered successfully", status: true });
   }
 });
 

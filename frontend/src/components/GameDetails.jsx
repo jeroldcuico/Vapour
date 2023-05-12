@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Screenshots from "./Screenshots";
@@ -7,10 +7,12 @@ import Ratings from "./Ratings";
 import { API_KEY, API_LINK } from "../constants/API";
 import Trailers from "./Trailers";
 
-export default function GameDetails() {
+
+export default function GameDetails({ userlogged }) {
   const [gamedetails, setGameDetails] = useState({});
   const location = useLocation();
   const [display, setDisplay] = useState("d-none");
+  const [added, setAdded] = useState(false)
   const { id } = location.state ?? { id: 0 };
   const navigate = useNavigate();
   useEffect(() => {
@@ -33,6 +35,25 @@ export default function GameDetails() {
 
   if (gamedetails.id === undefined) return; //Guard Class for ID grrr
   const ratings = gamedetails.ratings;
+
+  const handleAddCollection = async () => {
+
+    const updatedCollection = {
+      account_logged: userlogged.username,
+      account_id: userlogged.userid,
+      ...gamedetails
+    };
+    const response = await axios.post('http://localhost:8000/games/addCollection', updatedCollection)
+    const data = await response.data
+    setAdded(true)
+    localStorage.setItem('addedGame', JSON.stringify({
+      added: true,
+      game_id: gamedetails.id,
+      account_id: userlogged.userid
+    }));
+  }
+
+
   return (
     <>
       <div
@@ -50,7 +71,7 @@ export default function GameDetails() {
                     <div className="col-lg-7">
                       <div className="gametitle p-3">
                         <h1 className="text-white">{gamedetails.name}</h1>
-                        <div className="d-flex gap-2">
+                        <div className="d-flex gap-2 mb-3">
                           <button className="btn btn-info">
                             <span className="fw-bold">Released: </span>
                             {gamedetails.released || "Not yet"}
@@ -58,6 +79,32 @@ export default function GameDetails() {
                           <button className="btn btn-primary">
                             <span className="fw-bold">Metacritic Rating: </span>
                             {gamedetails.metacritic || "Not yet"}
+                          </button>
+                        </div>
+                        <div
+                          className="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <button
+                            type="button"
+                            className={`btn border ${added ? `btn-danger` : `btn-success`}`}
+                            onClick={handleAddCollection}
+
+                          >
+                            {added ? 'Added' : 'Add to Collection'}
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-success border"
+                          >
+                            Add to Liked
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-success border"
+                          >
+                            Refer to Friend
                           </button>
                         </div>
                       </div>
@@ -105,30 +152,6 @@ export default function GameDetails() {
                             </li>
                           ))}
                         </ul>
-                      </div>
-                      <div
-                        className="btn-group px-3"
-                        role="group"
-                        aria-label="Basic mixed styles example"
-                      >
-                        <button
-                          type="button"
-                          className="btn btn-success border "
-                        >
-                          Add to Collection
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-success border"
-                        >
-                          Add to Liked
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-success border"
-                        >
-                          Refer to Friend
-                        </button>
                       </div>
                     </div>
                     <div className="col-lg-5">

@@ -7,6 +7,7 @@ export default function AuthProvider({ children }) {
   let navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [userid, setId] = useState();
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function AuthProvider({ children }) {
     if (token) {
       setLoggedIn(true);
       setUsername(localStorage.getItem("username"));
+      setId(localStorage.getItem("id"));
     }
   }, []);
 
@@ -27,10 +29,12 @@ export default function AuthProvider({ children }) {
     if (data.success === true) {
       setLoggedIn(true);
       setUsername(credentials.username);
+      setId(data.id)
       localStorage.setItem("token", data.token);
+      localStorage.setItem("id", data.id);
       localStorage.setItem("username", credentials.username);
       setMessage("Logged in successfully");
-      navigate("/profile");
+      navigate('/profile')
     } else {
       setMessage(data.message);
     }
@@ -44,14 +48,17 @@ export default function AuthProvider({ children }) {
     if (data.success) {
       // Clear the stored token and username
       localStorage.removeItem("token");
+      localStorage.removeItem("id");
       localStorage.removeItem("username");
       setLoggedIn(false);
       setMessage("Logged out successfully");
+      navigate('/')
     }
   };
   const authContextValue = {
     loggedIn,
     username,
+    userid,
     message,
     login,
     logout,

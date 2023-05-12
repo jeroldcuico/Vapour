@@ -53,8 +53,6 @@ export default function Login() {
       data[field.name] = field.value;
       return data;
     }, {});
-    console.log(formData);
-    
     try {
       login(formData);
     } catch (error) {
