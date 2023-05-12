@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import {
@@ -20,8 +20,15 @@ import Login from "./Navigation/Login";
 import Profile from "./Navigation/Profile";
 import Registration from "./Navigation/Registration";
 import Test from "./Test";
+import { AuthContext } from "./hooks/AuthProvider";
 
 function App() {
+  const authContext = useContext(AuthContext);
+  // Check if authContext is undefined
+  if (!authContext) {
+    return <div>Loading...</div>; // or display an error message
+  }
+
   return (
     <>
       <Routes>

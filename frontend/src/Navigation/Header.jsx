@@ -15,8 +15,10 @@ export default function Header() {
   ];
 
   const location = useLocation();
+  const authContext = useContext(AuthContext);
   const { loggedIn, username, message, login, logout } =
     useContext(AuthContext);
+
   const [query, setQuery] = useState("");
   let navigate = useNavigate();
   const handleSearch = (e) => {
@@ -122,16 +124,22 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <div className="row">
-        <div className="col-md-10">
-          <Suspense>
-            <Outlet />
-          </Suspense>
+      {loggedIn ? (
+        <div className="row">
+          <div className="col-md-10">
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </div>
+          <div className="col-md-2">
+            <Sidebar />
+          </div>
         </div>
-        <div className="col-md-2">
-          <Sidebar />
-        </div>
-      </div>
+      ) : (
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      )}
     </>
   );
 }

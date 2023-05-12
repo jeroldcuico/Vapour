@@ -12,6 +12,8 @@
 
 body {
   background-color: #151515;
+  background-image: url('./assets/black.jpg');
+  overflow-x: hidden;
 }
 
 .navbar,
@@ -197,6 +199,7 @@ span.welcome {
 a.profile {
   text-decoration: none;
   color: var(--primary-color);
+  text-transform: capitalize;
   font-size: 13px;
 }
 a.profile:hover {
