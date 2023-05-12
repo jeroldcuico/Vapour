@@ -1,11 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../hooks/AuthProvider";
 import { Validation } from "../functions/Validation";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  document.title = "Login";
   const navigate = useNavigate();
   const [response, setResponse] = useState(null);
+  const { loggedIn, username, message, login, logout } =
+    useContext(AuthContext);
   const [fields, setFields] = useState([
     {
       type: "text",
@@ -45,16 +49,14 @@ export default function Login() {
       return;
     }
 
+    const formData = fields.reduce((data, field) => {
+      data[field.name] = field.value;
+      return data;
+    }, {});
+    console.log(formData);
+    
     try {
-      const formData = fields.reduce((data, field) => {
-        data[field.name] = field.value;
-        return data;
-      }, {});
-      const response = await axios.post(
-        "http://localhost:8000/account/login",
-        formData
-      );
-      setResponse(response.data);
+      login(formData);
     } catch (error) {
       console.error("Error:", error);
     }

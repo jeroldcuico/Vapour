@@ -17,6 +17,7 @@ import {
 } from "./components";
 import Header from "./Navigation/Header";
 import Login from "./Navigation/Login";
+import Profile from "./Navigation/Profile";
 import Registration from "./Navigation/Registration";
 import Test from "./Test";
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/publishers" element={<Publishers />} />
           <Route path="/developers" element={<Developers />} />
           <Route path="/stores" element={<Stores />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/test" element={<Test />} />

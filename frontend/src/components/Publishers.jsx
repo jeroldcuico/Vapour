@@ -8,6 +8,7 @@ import { API_KEY, API_LINK } from "../constants/API";
 
 
 export default function Publishers() {
+    document.title = 'Publishers'
     const [publishers, setPublishers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");

@@ -8,11 +8,10 @@ import { API_KEY, API_LINK } from "../constants/API";
 
 
 export default function Games() {
+    document.title = 'All Games'
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");
-
-
     const [ordering, setOrdering] = useState("popularity");
 
     const FetchData = (sort) => {

@@ -1,6 +1,7 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useContext } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../hooks/AuthProvider";
+import Sidebar from "./Sidebar";
 export default function Header() {
   const menus = [
     { label: "Home", path: "/" },
@@ -13,7 +14,9 @@ export default function Header() {
     { label: "Developers", path: "/developers" },
   ];
 
-  const location = useLocation()
+  const location = useLocation();
+  const { loggedIn, username, message, login, logout } =
+    useContext(AuthContext);
   const [query, setQuery] = useState("");
   let navigate = useNavigate();
   const handleSearch = (e) => {
@@ -28,7 +31,10 @@ export default function Header() {
     }
   };
 
-
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <>
       <nav className={`navbar navbar-expand-xl sticky-top py-0`}>
@@ -50,24 +56,58 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {menus?.map((item, id) => (
-                <li className={`nav-item ${location.pathname === item.path ? 'active' : ''}`} key={id}>
+                <li
+                  className={`nav-item px-2 ${
+                    location.pathname === item.path ? "active" : ""
+                  }`}
+                  key={id}
+                >
                   <Link className="nav-link text-white" to={item.path}>
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            <ul className="navbar-nav mb-lg-0 align-items-start mb-3 mx-2">
-              <li className="account__data mx-1">
-                <Link to={"/login"} className={`px-3 nav-link ${location.pathname === '/login' ? 'active' : ''}`}>
-                  Login
-                </Link>
-              </li>
-              <li className="account__data">
-                <Link to={"/register"}className={`px-3 nav-link ${location.pathname === '/register' ? 'active' : ''}`}>
-                  Sign Up
-                </Link>
-              </li>
+            <ul className="navbar-nav mb-lg-0 align-items-start mb-5 px-2">
+              {loggedIn ? (
+                <>
+                  <li className="mt-2 text-capitalize">
+                    <span className="welcome mx-2">Welcome</span>
+                    <Link className="profile" to={"/profile"}>
+                      {username}
+                    </Link>
+                    !
+                  </li>
+                  <li className="account__data mt-1 text-capitalize text-white">
+                    <Link className="px-3 nav-link" onClick={handleLogout}>
+                      Logout
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="account__data mx-1">
+                    <Link
+                      to={"/login"}
+                      className={`px-3 nav-link ${
+                        location.pathname === "/login" ? "active" : ""
+                      }`}
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li className="account__data">
+                    <Link
+                      to={"/register"}
+                      className={`px-3 nav-link ${
+                        location.pathname === "/register" ? "active" : ""
+                      }`}
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
             <form className="d-flex" role="search">
               <input
@@ -75,16 +115,23 @@ export default function Header() {
                 type="search"
                 value={query}
                 onChange={handleSearch}
-                placeholder="Search"
+                placeholder="Search Games"
                 aria-label="Search"
               />
             </form>
           </div>
         </div>
       </nav>
-      <Suspense>
-        <Outlet />
-      </Suspense>
+      <div className="row">
+        <div className="col-md-10">
+          <Suspense>
+            <Outlet />
+          </Suspense>
+        </div>
+        <div className="col-md-2">
+          <Sidebar />
+        </div>
+      </div>
     </>
   );
 }

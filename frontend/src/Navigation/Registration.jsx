@@ -4,6 +4,7 @@ import { Validation } from "../functions/Validation";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Registration() {
+  document.title = 'Sign up'
   const navigate = useNavigate();
   const [response, setResponse] = useState(null);
   const [fields, setFields] = useState([
@@ -69,7 +70,7 @@ export default function Registration() {
         "http://localhost:8000/account/register",
         formData
       );
-      if (response.data.status === "success") {
+      if (response.data.status === true) {
         //redirect to login
         setTimeout(() => {
           navigate("/login");

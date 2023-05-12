@@ -7,6 +7,7 @@ import Category_Cards from "./Category_Cards";
 import { API_KEY, API_LINK } from "../constants/API";
 
 export default function Tags() {
+  document.title = 'Tags'
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
@@ -28,6 +29,7 @@ export default function Tags() {
   useEffect(() => {
     FetchData();
   }, []); //!Initialize first 20 Games
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
