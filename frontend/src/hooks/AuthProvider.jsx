@@ -10,7 +10,7 @@ export default function AuthProvider({ children }) {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // Check if the user is already logged in
+    // Check if the user is already logged in using localstorage (NINJAAAAAA)
     const token = localStorage.getItem("token");
     if (token) {
       setLoggedIn(true);
