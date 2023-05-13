@@ -36,7 +36,7 @@ export default function Trailers({ gameid }) {
               key={trailer["480"]}
               src={trailer["480"]}
               width={'100%'}
-              height={'200px'}
+              height={'350px'}
             />
           ))}
         </div>

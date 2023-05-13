@@ -4,6 +4,7 @@ import { Validation } from "../functions/Validation";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Registration() {
+  document.title = 'Sign up'
   const navigate = useNavigate();
   const [response, setResponse] = useState(null);
   const [fields, setFields] = useState([
@@ -50,7 +51,8 @@ export default function Registration() {
     },
   ]);
   const [errors, setErrors] = useState({});
-  const handleRegistration = async () => {
+  const handleRegistration = async (e) => {
+    e.preventDefault();
     // Reset errors
     setErrors({});
     // Perform form validation using Validation component
@@ -69,7 +71,7 @@ export default function Registration() {
         "http://localhost:8000/account/register",
         formData
       );
-      if (response.data.status === "success") {
+      if (response.data.status === true) {
         //redirect to login
         setTimeout(() => {
           navigate("/login");
@@ -103,7 +105,7 @@ export default function Registration() {
                       {response && (
                         <span className="error">{response.message}</span>
                       )}
-                      <form className="row g-4">
+                      <form className="row g-4" onSubmit={handleRegistration}>
                         {fields?.map((field, index) => (
                           <div key={field.name} className="col-12">
                             {errors[field.name] && (

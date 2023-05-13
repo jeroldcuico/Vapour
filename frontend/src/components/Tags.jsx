@@ -7,6 +7,7 @@ import Category_Cards from "./Category_Cards";
 import { API_KEY, API_LINK } from "../constants/API";
 
 export default function Tags() {
+  document.title = 'Tags'
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
@@ -16,7 +17,6 @@ export default function Tags() {
     axios
       .get(`${API_LINK}/tags?${API_KEY}&page_size=20`)
       .then((res) => {
-        console.log(res.data);
         setTags(res.data.results);
         setNextPage(res.data.next);
         setLoading(false);
@@ -28,6 +28,7 @@ export default function Tags() {
   useEffect(() => {
     FetchData();
   }, []); //!Initialize first 20 Games
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {

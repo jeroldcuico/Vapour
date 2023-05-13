@@ -14,7 +14,7 @@ export default function Category_List() {
   const [loading, setLoading] = useState(true);
   const [nextPage, setNextPage] = useState("");
   const url = `${API_LINK}/games?${API_KEY}&${category}=${item.id}`;
-
+  document.title = item.name
   const FetchData = () => {
     setLoading(true);
     axios

@@ -7,6 +7,7 @@ import { API_KEY, API_LINK } from "../constants/API";
 
 
 export default function Genres() {
+    document.title = 'Genres'
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");

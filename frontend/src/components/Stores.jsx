@@ -8,14 +8,13 @@ import { API_KEY, API_LINK } from "../constants/API";
 
 
 export default function Stores() {
+    document.title = 'Stores'
     const [stores, setStores] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");
-
     const FetchData = () => {
         setLoading(true)
         axios
-
             .get(`${API_LINK}/stores?${API_KEY}&page_size=20`)
 
             .then((res) => {
@@ -27,7 +26,6 @@ export default function Stores() {
                 console.log(error);
             });
     };
-
     useEffect(() => {
         FetchData()
     }, []); //!Initialize first 20 Games

@@ -18,7 +18,7 @@ export default function Category_Cards({ item, category }) {
                         </Link>
                     </div>
                     <div className="category__button py-3">
-                        {category === 'stores' && <button className='btn btn-dark'> Follow</button>}
+                        
                     </div>
                     <div className="category__footer">
                         <h6>Games Counted: {item.games_count}</h6>
