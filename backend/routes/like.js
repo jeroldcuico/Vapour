@@ -2,21 +2,21 @@ const express = require("express");
 let router = express.Router();
 
 //Initialize Data without DB
-let collections = [
+let liked = [
   {
-    collection_id: 0,
+    like_id: 0,
   },
 ];
 
 router.get("/all", (req, res) => {
-  res.send(collections);
+  res.send(liked);
 });
 
-router.post("/addCollection", (req, res) => {
+router.post("/addLike", (req, res) => {
   // Save the game based to collection based from logged user
-  const newCollection = { collection_id: collections.length + 1, ...req.body };
+  const newCollection = { like_id: liked.length + 1, ...req.body };
   // Check if the newCollection already
-  const existingCollection = collections.find((collection) => {
+  const existingCollection = liked.find((collection) => {
     return (
       collection.id === newCollection.id &&
       collection.account_id === newCollection.account_id
@@ -24,28 +24,28 @@ router.post("/addCollection", (req, res) => {
   });
 
   if (existingCollection) {
-    res.send({ message: "Collection already exists", status: false });
+    res.send({ message: "You already liked this", status: false });
   } else {
-    collections.push(newCollection);
-    res.send({ message: "Collection added", status: true });
+    liked.push(newCollection);
+    res.send({ message: "Added to Likes", status: true });
   }
 });
 
-router.get("/collection", (req, res) => {
+router.get("/like", (req, res) => {
   const account_id = req.query.account_id;
-  const filteredCollection = collections.filter(
+  const filteredCollection = liked.filter(
     (item) => item.account_id === account_id
   );
   res.json(filteredCollection);
 });
 
-router.delete("/collection/delete/:id", (req, res) => {
+router.delete("/like/delete/:id", (req, res) => {
   const account_id = req.query.account_id;
   const id = req.params.id;
-  collections = collections.filter(
+  liked = liked.filter(
     (e) => e.id !== Number(id) && e.account_id !== Number(account_id)
   );
-  res.send({ message: `Game succesfully Deleted` });
+  res.send({ message: `Game succesfully Deleted from likes` });
 });
 
 module.exports = router;

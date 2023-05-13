@@ -174,7 +174,7 @@ li.account__data:hover {
   border-radius: 0.434rem;
 }
 
-.account__data>* {
+.account__data > * {
   font-weight: bold;
   text-decoration: none;
   font-size: 12px;
@@ -248,11 +248,34 @@ a.profile:hover {
   transition: margin-left 0.3s ease;
 }
 
-.normal__link{
+.normal__link {
   text-decoration: none;
   color: var(--primary-color);
 }
 
-.normal__link:hover{
+.normal__link:hover {
   color: wheat;
+}
+
+.card-body-custom {
+  background-color: #151515;
+}
+
+.custom-nav li a {
+  color: white;
+}
+
+.custom-caption {
+  color: #37d7e2 !important;
+  font-weight: bold;
+}
+
+
+.container-fluid h1{
+  padding-block:1rem;
+}
+
+.newrelease {
+  position: absolute;
+  height: 100vh;
 }

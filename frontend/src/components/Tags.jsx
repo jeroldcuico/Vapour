@@ -17,7 +17,6 @@ export default function Tags() {
     axios
       .get(`${API_LINK}/tags?${API_KEY}&page_size=20`)
       .then((res) => {
-        console.log(res.data);
         setTags(res.data.results);
         setNextPage(res.data.next);
         setLoading(false);

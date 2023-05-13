@@ -7,12 +7,13 @@ import Ratings from "./Ratings";
 import { API_KEY, API_LINK } from "../constants/API";
 import Trailers from "./Trailers";
 
-
 export default function GameDetails({ userlogged }) {
   const [gamedetails, setGameDetails] = useState({});
   const location = useLocation();
   const [display, setDisplay] = useState("d-none");
-  const [added, setAdded] = useState(false)
+  const [added, setAdded] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [navigateId, setnavigateId] = useState({});
   const { id } = location.state ?? { id: 0 };
   const navigate = useNavigate();
   useEffect(() => {
@@ -31,28 +32,64 @@ export default function GameDetails({ userlogged }) {
           console.log(`error`);
         });
     }
+
+    // Check if the user is already logged in using localstorage (NINJAAAAAA)
+    const addedGame = JSON.parse(localStorage.getItem('addedGame'));;
+    const LikedGame = JSON.parse(localStorage.getItem("LikedGame"));
+    if (addedGame) {
+      setAdded(true);
+      setnavigateId({added :addedGame})
+    }
+    if (LikedGame) {
+      setLiked(true);
+      setnavigateId({liked : LikedGame})
+    }
+  
   }, [id, navigate]);
+
+
+  
 
   if (gamedetails.id === undefined) return; //Guard Class for ID grrr
   const ratings = gamedetails.ratings;
-
+  const updatedCollection = {
+    account_logged: userlogged.username,
+    account_id: userlogged.userid,
+    ...gamedetails,
+  };
   const handleAddCollection = async () => {
+    const response = await axios.post(
+      "http://localhost:8000/games/addCollection",
+      updatedCollection
+    );
+    const data = await response.data;
+    setAdded(true);
+    localStorage.setItem(
+      "addedGame",
+      JSON.stringify({
+        added: true,
+        game_id: gamedetails.id,
+        account_id: userlogged.userid,
+      })
+    );
+  };
 
-    const updatedCollection = {
-      account_logged: userlogged.username,
-      account_id: userlogged.userid,
-      ...gamedetails
-    };
-    const response = await axios.post('http://localhost:8000/games/addCollection', updatedCollection)
-    const data = await response.data
-    setAdded(true)
-    localStorage.setItem('addedGame', JSON.stringify({
-      added: true,
-      game_id: gamedetails.id,
-      account_id: userlogged.userid
-    }));
-  }
-
+  const handleAddLike = async () => {
+    const response = await axios.post(
+      "http://localhost:8000/likedgames/addLike",
+      updatedCollection
+    );
+    const data = await response.data;
+    setLiked(true);
+    localStorage.setItem(
+      "LikedGame",
+      JSON.stringify({
+        added: true,
+        game_id: gamedetails.id,
+        account_id: userlogged.userid,
+      })
+    );
+  };
 
   return (
     <>
@@ -88,23 +125,21 @@ export default function GameDetails({ userlogged }) {
                         >
                           <button
                             type="button"
-                            className={`btn border ${added ? `btn-danger` : `btn-success`}`}
+                            className={`btn border ${
+                              added ? `btn-danger` : `btn-success`
+                            }`}
                             onClick={handleAddCollection}
-
                           >
-                            {added ? 'Added' : 'Add to Collection'}
+                            {added ? "Added" : "Add to Collection"}
                           </button>
                           <button
                             type="button"
-                            className="btn btn-success border"
+                            className={`btn border ${
+                              liked ? `btn-danger` : `btn-success`
+                            }`}
+                            onClick={handleAddLike}
                           >
-                            Add to Liked
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-success border"
-                          >
-                            Refer to Friend
+                            {liked ? "Liked" : "Add to Like"}
                           </button>
                         </div>
                       </div>
@@ -199,52 +234,6 @@ export default function GameDetails({ userlogged }) {
                       </div>
                       <div className="my-2">
                         <Trailers gameid={gamedetails.id} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section>
-                <div className="details-section">
-                  <ul className="nav nav-tabs custom-nav border border-0">
-                    <li className="nav-item maskedbg rounded">
-                      <a
-                        className="nav-link active"
-                        data-bs-toggle="tab"
-                        href="#contact-details"
-                      >
-                        Contact Details
-                      </a>
-                    </li>
-                    <li className="nav-item maskedbg rounded">
-                      <a
-                        className="nav-link "
-                        data-bs-toggle="tab"
-                        href="#files-attached"
-                      >
-                        Files Attached
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="card tab-content maskedbg">
-                    <div id="contact-details" className="tab-pane active">
-                      <div className="card-body">
-                        <h2>Contact Details</h2>
-                      </div>
-                    </div>
-                    <div id="files-attached" className="tab-pane fade">
-                      <div className="card-body">
-                        <div className="row mb-2">
-                          <h2>Files Attached</h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="client-progress" className="tab-pane fade">
-                      <div className="card-body">
-                        <div className="row mb-2">
-                          <h2>Client Progress</h2>
-                        </div>
                       </div>
                     </div>
                   </div>

@@ -58,8 +58,9 @@ export default function Header() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {menus?.map((item, id) => (
                 <li
-                  className={`nav-item ${location.pathname === item.path ? "active" : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === item.path ? "active" : ""
+                  }`}
                   key={id}
                 >
                   <Link className="nav-link text-white" to={item.path}>
@@ -89,8 +90,9 @@ export default function Header() {
                   <li className="account__data mx-1">
                     <Link
                       to={"/login"}
-                      className={`px-3 nav-link ${location.pathname === "/login" ? "active" : ""
-                        }`}
+                      className={`px-3 nav-link ${
+                        location.pathname === "/login" ? "active" : ""
+                      }`}
                     >
                       Login
                     </Link>
@@ -98,8 +100,9 @@ export default function Header() {
                   <li className="account__data">
                     <Link
                       to={"/register"}
-                      className={`px-3 nav-link ${location.pathname === "/register" ? "active" : ""
-                        }`}
+                      className={`px-3 nav-link ${
+                        location.pathname === "/register" ? "active" : ""
+                      }`}
                     >
                       Sign Up
                     </Link>
@@ -120,11 +123,11 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Suspense>
-        <Outlet />
-      </Suspense>
-
-
+      <div className="container-fluid vh-100">
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </div>
     </>
   );
 }
