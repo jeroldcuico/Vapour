@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Lottie from "lottie-react";
 import Gameloader from "../assets/Lottie/gamecontroller.json";
@@ -8,6 +7,7 @@ import { API_KEY, API_LINK } from "../constants/API";
 
 
 export default function Tags() {
+    document.title = 'Platforms'
     const [platforms, setPlatforms] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");

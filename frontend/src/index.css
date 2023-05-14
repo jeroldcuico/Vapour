@@ -12,6 +12,7 @@
 
 body {
   background-color: #151515;
+  overflow-x: hidden;
 }
 
 .navbar,
@@ -89,9 +90,7 @@ section {
 
 .card-category {
   position: relative;
-  height: 10rem;
   border: none;
-
   z-index: 1;
 }
 
@@ -174,11 +173,14 @@ li.account__data:hover {
   background-color: var(--primary-color);
   border-radius: 0.434rem;
 }
+
 .account__data > * {
   font-weight: bold;
+  text-decoration: none;
   font-size: 12px;
   color: var(--primary-color);
 }
+
 .account__data a:hover {
   color: azure;
 }
@@ -199,4 +201,81 @@ li.nav-item:hover {
 
 .navbar-brand {
   font-size: 2.5rem;
+}
+
+span.welcome {
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
+}
+
+a.profile {
+  text-decoration: none;
+  color: var(--primary-color);
+  text-transform: capitalize;
+  font-size: 13px;
+}
+
+a.profile:hover {
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #01060c;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+.sidebar.hide {
+  transform: translateX(-250px);
+}
+
+/* Content */
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.normal__link {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.normal__link:hover {
+  color: wheat;
+}
+
+.card-body-custom {
+  background-color: #151515;
+}
+
+.custom-nav li a {
+  color: white;
+}
+
+.custom-caption {
+  color: #37d7e2 !important;
+  font-weight: bold;
+}
+
+
+.container-fluid h1{
+  padding-block:1rem;
+}
+
+.newrelease {
+  position: absolute;
+  height: 100vh;
 }

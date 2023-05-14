@@ -1,11 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../hooks/AuthProvider";
 import { Validation } from "../functions/Validation";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  document.title = "Login";
   const navigate = useNavigate();
   const [response, setResponse] = useState(null);
+  const { loggedIn, username, message, login, logout } =
+    useContext(AuthContext);
   const [fields, setFields] = useState([
     {
       type: "text",
@@ -45,16 +49,12 @@ export default function Login() {
       return;
     }
 
+    const formData = fields.reduce((data, field) => {
+      data[field.name] = field.value;
+      return data;
+    }, {});    
     try {
-      const formData = fields.reduce((data, field) => {
-        data[field.name] = field.value;
-        return data;
-      }, {});
-      const response = await axios.post(
-        "http://localhost:8000/account/login",
-        formData
-      );
-      setResponse(response.data);
+      login(formData);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -76,7 +76,9 @@ export default function Login() {
             <div className="col-lg-10 offset-lg-1">
               <div className="bg-white shadow rounded">
                 <div className="row">
-                  <div className="col-md-5 ps-0 d-none d-md-block bg-dark"></div>
+                  <div className="col-md-5 ps-0 d-none d-md-block bg-dark">
+                      Login sdfdsfdsfdsf
+                  </div>
                   <div className="col-md-7 pe-0">
                     <div className="form-left h-100 py-5 px-5">
                       <h3 className="mb-3">Login Now</h3>

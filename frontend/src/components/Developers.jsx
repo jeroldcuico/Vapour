@@ -6,6 +6,7 @@ import Category_Cards from "./Category_Cards";
 import { API_KEY, API_LINK } from "../constants/API";
 
 export default function Developers() {
+    document.title = 'Developers'
     const [developers, setDevelopers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState("");

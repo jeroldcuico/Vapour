@@ -7,6 +7,7 @@ import Cards from "./Cards";
 
 
 export default function Search() {
+    document.title = 'Search Query'
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
